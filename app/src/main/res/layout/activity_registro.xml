@@ -1,0 +1,166 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar">
+    </include>
+
+     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+         android:layout_below="@+id/tool_bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Nombre (s):"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:ems="10"
+            android:id="@+id/etnombre"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:maxLength="30"
+            android:lines="1"
+            android:background="@android:drawable/editbox_background_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Apellido Paterno:"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/etnombre"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Paterno"
+            android:ems="10"
+            android:lines="1"
+            android:id="@+id/etpaterno"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:maxLength="30"
+            android:textAlignment="center"
+            android:background="@android:drawable/editbox_background_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Apellido Materno:"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/etpaterno"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Materno"
+            android:ems="10"
+            android:id="@+id/etmaterno"
+            android:lines="1"
+            android:layout_below="@+id/textView3"
+            android:layout_centerHorizontal="true"
+            android:maxLength="30"
+            android:textAlignment="center"
+            android:background="@android:drawable/editbox_background_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Nombre usuario:"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/etmaterno"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignEnd="@+id/textView3" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etusuario"
+            android:maxLength="30"
+            android:lines="1"
+            android:layout_below="@+id/textView4"
+            android:layout_alignLeft="@+id/etmaterno"
+            android:layout_alignStart="@+id/etmaterno"
+            android:layout_alignRight="@+id/etmaterno"
+            android:layout_alignEnd="@+id/etmaterno"
+            android:inputType="textPersonName"
+            android:background="@android:drawable/editbox_background_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Contraseña:"
+            android:id="@+id/textView5"
+            android:layout_below="@+id/etusuario"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/etcontraseña"
+            android:lines="1"
+            android:maxLength="30"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:background="@android:drawable/editbox_background_normal" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinEspecialidad"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_below="@+id/textView6"
+            android:layout_alignLeft="@+id/etcontraseña"
+            android:layout_alignStart="@+id/etcontraseña"
+            android:layout_alignRight="@+id/etcontraseña"
+            android:layout_alignEnd="@+id/etcontraseña" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Especialidad:"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/etcontraseña"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:id="@+id/btregistrar"
+            android:onClick="insertar"
+            android:layout_below="@+id/spinEspecialidad"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="31dp" />
+        </RelativeLayout>
+</RelativeLayout>

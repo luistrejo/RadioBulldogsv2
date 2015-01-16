@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:id="@+id/lista">
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#9933cc"
+        android:headerDividersEnabled="false"
+        android:layout_span="12"
+        android:stackFromBottom="true"
+        android:dividerHeight="1dp"
+        android:layout_above="@+id/imbEnviar"
+        android:layout_below="@+id/tool_bar" />
+
+    <ImageButton
+        android:id="@+id/imbEnviar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_send"
+        android:onClick="enviar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:baselineAlignBottom="false" />
+
+    <EditText
+        android:id="@+id/etMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background_normal"
+        android:inputType="textCapSentences"
+        android:hint="Dinos tu comentario :)"
+        android:textColor="#ff915bff"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/imbEnviar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/imbEnviar">
+
+    </EditText>
+
+
+</RelativeLayout>
