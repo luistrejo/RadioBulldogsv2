@@ -2,9 +2,12 @@ package luistrejo.com.materialdesign;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -20,15 +23,24 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 public class MainActivity extends ActionBarActivity {
 
         //First We Declare Titles And Icons For Our Navigation Drawer List View
         //This Icons And Titles Are holded in an Array as you can see
 
-        String TITLES[] = {"Radio","Chat","Calendario de actividades","Comentarios", "Acerca de","Salir"};
+        String TITLES[] = {"Radio","Chat","Horarios", "Calendario de actividades","Sugerencias", "Acerca de","Salir"};
         int ICONS[] = {
                 R.drawable.ic_radio,
                 R.drawable.ic_action,
+                R.drawable.ic_action_clock,
                 R.drawable.ic_calendar,
                 R.drawable.ic_coment,
                 R.drawable.ic_action_info,
@@ -109,21 +121,23 @@ public class MainActivity extends ActionBarActivity {
                                 title = "Chat";
                                 break;}
                             case 3:{
+                                copyAssets();
+                                break;}
+                            case 4:{
                                 fragment = new Calendario();
                                 title = "Calendario de Actividades";
-                                break;
-                            }
-                            case 4:{
-                                fragment = new Sugerencias();
-                                title = "Comentarios";
-                                break;
-                            }
+                                break;}
                             case 5:{
+                                fragment = new Sugerencias();
+                                title = "Sugerencias";
+                                break;
+                            }
+                            case 6:{
                                 fragment = new Acerca();
                                 title = "Acerca de";
                                 break;
                             }
-                            case 6:{
+                            case 7:{
                                 Intent logout = new Intent(MainActivity.this, Login.class);
                                 logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(logout);
@@ -225,4 +239,54 @@ public class MainActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    /////PDF
+    private void copyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        for(String filename : files) {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = assetManager.open(filename);
+                File outFile = new File(getExternalFilesDir(null), filename);
+                out = new FileOutputStream(outFile);
+                copyFile(in, out);
+            } catch(IOException e) {
+                Log.e("tag", "Failed to copy asset file: " + filename, e);
+            }
+            finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException e) {
+                        // NOOP
+                    }
+                }
+            }
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(
+                Uri.parse("file://" + getExternalFilesDir(null) + "/grupos.pdf"),"application/pdf");
+        startActivity(intent);
     }
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
+}
+
