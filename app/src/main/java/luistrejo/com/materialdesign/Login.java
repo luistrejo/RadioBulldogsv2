@@ -37,8 +37,7 @@ public class Login extends Activity{
     Httppostaux post;
 
     // String URL_connect="http://www.scandroidtest.site90.com/acces.php";
-    String IP_Server="192.168.0.109";//IP DE NUESTRO PC
-    String URL_connect="http://"+IP_Server+"/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect="http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
 
     boolean result_back;
     private ProgressDialog pDialog;

@@ -46,8 +46,7 @@ public class Registro extends ActionBarActivity {
     private Spinner especialidad;
     private Button insertar;
     Httppostaux post;
-    String IP_Server="192.168.0.109";//IP DE NUESTRO PC
-    String URL_connect="http://"+IP_Server+"/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect="http://192.168.0.109/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
 
 
     @Override
@@ -83,7 +82,7 @@ public class Registro extends ActionBarActivity {
                     new asynclogin().execute(usuario1);
                 else {
                     vibrator.vibrate(200);
-                    Toast.makeText(Registro.this, "Hay campos por llenar.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Registro.this, "Ups! Tal parece que no has escrito nada.", Toast.LENGTH_LONG).show();
                 }
             }
         });

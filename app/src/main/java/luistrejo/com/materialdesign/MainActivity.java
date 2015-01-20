@@ -278,7 +278,7 @@ public class MainActivity extends ActionBarActivity {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(
-                Uri.parse("file://" + getExternalFilesDir(null) + "/grupos.pdf"),"application/pdf");
+                Uri.parse("file://" + getExternalFilesDir(null) + "/grupos.pdf" ),"application/pdf");
         startActivity(intent);
     }
     private void copyFile(InputStream in, OutputStream out) throws IOException {

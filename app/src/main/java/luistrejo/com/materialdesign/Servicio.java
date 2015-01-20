@@ -53,7 +53,7 @@ public class Servicio extends Service {
         Notification noti = new Notification.Builder(this)
                 .setContentTitle("Radio Bulldogs")
                 .setContentText("La estacion de radio mas perra!")
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentIntent(pIntent)
                 .setTicker("Radio Buldogs! La estacion de radio mas perra." )
                 .build();

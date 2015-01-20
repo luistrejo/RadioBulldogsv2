@@ -30,17 +30,27 @@ public class Calendario extends ListFragment implements View.OnClickListener{
 
             final int sectionsNumber = 6;
             final String[] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"};
-            final String[][] fechas = {{"7               Regreso de Periodo Vacacional",
-                    "9               Inscripción a Recursos", "12 - 23     Recursos",
-                    "19 - 21     Inscripción de Alumnos Regulares: 2°, 4° y 6°",
-                    "26 - 28     Captura de Calificaciones de Recurso",
-                    "26 - 30     Capacitación a Docentes"},
-                    {"3 - 6          Planeación Curricular",
-                            "3               Inicio de clases"},
-                    {"1               Fecha", "2               Fecha","3               Fecha"},
-                    {"1               Fecha", "2               Fecha","3               Fecha"},
-                    {"1               Fecha", "2               Fecha","3               Fecha"},
-                    {"1               Fecha", "2               Fecha","3               Fecha"}};
+            final String[][] fechas = {
+                   {"7               Regreso de Periodo Vacacional",
+                           "9               Inscripción a Recursos",
+                           "12 - 23     Recursos",
+                           "19 - 21     Inscripción de Alumnos Regulares: 2°, 4° y 6°",
+                           "26 - 28     Captura de Calificaciones de Recurso",
+                           "26 - 30     Capacitación a Docentes"},
+                   { "3 - 6          Planeación Curricular",
+                           "3               Inicio de clases"},
+                   { "1               Fecha",
+                           "2               Fecha",
+                           "3               Fecha"},
+                   { "1               Fecha",
+                           "2               Fecha",
+                           "3               Fecha"},
+                   { "1               Fecha",
+                           "2               Fecha",
+                           "3               Fecha"},
+                   { "1               Fecha",
+                           "2               Fecha",
+                           "3               Fecha"}};
 
             prepareSections(sectionsNumber);
 
