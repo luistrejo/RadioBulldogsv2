@@ -31,26 +31,50 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             final int sectionsNumber = 6;
             final String[] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"};
             final String[][] fechas = {
-                   {"7               Regreso de Periodo Vacacional",
-                           "9               Inscripción a Recursos",
-                           "12 - 23     Recursos",
-                           "19 - 21     Inscripción de Alumnos Regulares: 2°, 4° y 6°",
-                           "26 - 28     Captura de Calificaciones de Recurso",
-                           "26 - 30     Capacitación a Docentes"},
-                   { "3 - 6          Planeación Curricular",
-                           "3               Inicio de clases"},
-                   { "1               Fecha",
-                           "2               Fecha",
-                           "3               Fecha"},
-                   { "1               Fecha",
-                           "2               Fecha",
-                           "3               Fecha"},
-                   { "1               Fecha",
-                           "2               Fecha",
-                           "3               Fecha"},
-                   { "1               Fecha",
-                           "2               Fecha",
-                           "3               Fecha"}};
+                           {"7 - 8              Solicitud de papeletas (Pago de recurso)",
+                            "9               Inscripción a Recursos",
+                            "12 - 25     Curso de Capacitacion CENALTEC (Ensamble de aéro-estructuras)     ",
+                            "12 - 23     Recursos",
+                            "12 - 13     Reunion Estatal Construye-T",
+                            "14 - 16     Reunion de Academia Estatal en Cd. Chihuahua",
+                            "19 - 21     Curso para Orientadores y Fomento a la Salud",
+                            "20             Curso Taller - Construye-T - Tutorias (UPN)",
+                            "21 - 23     Reinscripción de Alumnos Regulares: 2°, 4° y 6°",
+                            "23 - 27     Captura de Calificaciones de Recurso",
+                            "26 - 30     Asesoria Ceneval - Enlace para 6to Semestre",
+                            "26 - 30     Planeacion Curricular",
+                            "26 - 30     Trabajos de Academias Locales",
+                            "30             Colegiado Académico"},
+                          { "2               Suspensión de Labores",
+                            "3               Inicio de clases - Ceremonia Civica(T.M. 9:00 hrs, T.V. 16:45 hrs)",
+                            "3 - 6              Reinscripción de Alumnos Irregulares: 2°, 4° y 6°",
+                            "17 - 20     Entrega de Planeación Académica",
+                            "17 - 20     Concurso Estatal de Prototipos",
+                            "17 - 20     XV Festival Académico Local 2015"},
+                          { "2 - 6              1° Evaluacion Parcial",
+                            "3 - 6              Festival Académico Etapa Estatal",
+                            "9 - 11       Captura calificaciones 1° Evaluacion Parcial",
+                            "11 - 13     1° Academia Local",
+                            "16              Suspensión de Labores",
+                            "17              Entrega de boletas",
+                            "18 - 20     Aplicacion Prueba Enlace 2015",
+                            "18 - 20     Promocion del Plantel",
+                            "23              Ceremonia Civica T.V. 16:45 hrs",
+                            "23 - 27     Supervisión en el Aula",
+                            "24 - 27     Festival Académico Etapa Nacional",
+                            "30 - 31     Periodo Vacional"},
+                          { "1 - 2              Periodo Vacacional",
+                            "20 - 24     2° Evaluación Parcial",
+                            "27 - 29     Captura de la 2° Evaluación Parcial",
+                            "27 - 30     Semana Nacional de Vinculación",
+                            "27 - 30     2° Academia Local",
+                            "4 y 6              2°"},
+                          { "1               Fecha",
+                            "2               Fecha",
+                            "3               Fecha"},
+                          { "1               Fecha",
+                            "2               Fecha",
+                            "3               Fecha"}};
 
             prepareSections(sectionsNumber);
 
@@ -227,15 +251,15 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             ListView list = getListView();
 
             LayoutInflater inflater = LayoutInflater.from(this.getActivity());
-            TextView header1 = (TextView) inflater.inflate(android.R.layout.simple_list_item_1, list, false);
+            TextView header1 = (TextView) inflater.inflate(R.layout.item_calendario, list, false);
             header1.setText("First header");
             list.addHeaderView(header1);
 
-            TextView header2 = (TextView) inflater.inflate(android.R.layout.simple_list_item_1, list, false);
+            TextView header2 = (TextView) inflater.inflate(R.layout.item_calendario, list, false);
             header2.setText("Second header");
             list.addHeaderView(header2);
 
-            TextView footer = (TextView) inflater.inflate(android.R.layout.simple_list_item_1, list, false);
+            TextView footer = (TextView) inflater.inflate(R.layout.item_calendario, list, false);
             footer.setText("Single footer");
             list.addFooterView(footer);
         }
@@ -248,9 +272,9 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 getListView().setFastScrollAlwaysVisible(true);
             }
-            setListAdapter(new FastScrollAdapter(this.getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1));
+            setListAdapter(new FastScrollAdapter(this.getActivity(), R.layout.item_calendario, R.id.text1));
         } else {
-            setListAdapter(new SimpleAdapter(this.getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1));
+            setListAdapter(new SimpleAdapter(this.getActivity(), R.layout.item_calendario, R.id.text1));
         }
     }
 
@@ -263,4 +287,3 @@ public class Calendario extends ListFragment implements View.OnClickListener{
 
 
 }
-

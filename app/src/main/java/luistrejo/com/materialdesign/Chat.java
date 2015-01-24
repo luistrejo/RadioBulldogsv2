@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -50,8 +51,8 @@ public class Chat extends Fragment {
         private ProgressDialog pDialog;
 
         // Declaramos variables para listview
-        JSONObject jsonobject;
-        JSONArray jsonarray;
+        JSONObject jsonobject, jsonobject2;
+        JSONArray jsonarray, jsonarray2;
         ListView listview;
         ListViewAdapter adapter;
         ProgressDialog mProgressDialog;
@@ -61,9 +62,15 @@ public class Chat extends Fragment {
         public static String fecha = "fecha";
         Handler mHandler = new Handler();
         String TAG = "Chat";
+        ArrayList<HashMap<String, String>> valor, valornuevo;
+        HashMap<String, String> map;
+        int valornuevoo, valorr, array;
+        boolean eva;
+        TextView error;
 
 
-        @Override
+
+    @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -76,7 +83,10 @@ public class Chat extends Fragment {
             }
             mensaje=(EditText)rootView.findViewById(R.id.etMensaje);
             enviar=(ImageButton)rootView.findViewById(R.id.imbEnviar);
-            enviar.setOnClickListener(new View.OnClickListener() {
+            error=(TextView)rootView.findViewById(R.id.mensajeconexion);
+            error.setVisibility(View.INVISIBLE);
+
+        enviar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     if (!mensaje.getText().toString().trim().equalsIgnoreCase(""))
@@ -112,7 +122,7 @@ public class Chat extends Fragment {
             }).start();
 
 
-            return rootView;
+        return rootView;
         }
 
         //enviamos el mensaje escrito al servidor
@@ -137,6 +147,8 @@ public class Chat extends Fragment {
                 httpclient.execute(httppost);
 
                 return true;
+            }catch (NullPointerException e) {
+                e.printStackTrace();
             }catch (UnsupportedEncodingException e){
                 e.printStackTrace();
             }catch (ClientProtocolException e){
@@ -216,48 +228,76 @@ public class Chat extends Fragment {
             @Override
             protected Void doInBackground(Void... params) {
                 // Create an array
-                arraylist = new ArrayList<HashMap<String, String>>();
+
+
+
                 // Retrieve JSON Objects from the given URL address
-                jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
 
                 try {
                     // Locate the array name in JSON
+                    jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
                     jsonarray = jsonobject.getJSONArray("comentarios");
+                    if (jsonarray.length() == valornuevoo) {
+                        Log.d(TAG, "Igual");
+                        eva = false;
+                    } else {
 
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        jsonobject = jsonarray.getJSONObject(i);
-                        // Retrive JSON Objects
-                        map.put("usuario", jsonobject.getString("usuario"));
-                        map.put("comentario", jsonobject.getString("comentario"));
-                        map.put("fecha", jsonobject.getString("fecha"));
-                        // Set the JSON Objects into the array
-                        arraylist.add(map);
+                        array = jsonarray.length();
+                        arraylist = new ArrayList<HashMap<String, String>>();
+                        valor = new ArrayList<HashMap<String, String>>();
+                        valornuevo = new ArrayList<HashMap<String, String>>();
+
+                        for (int i = 0; i < jsonarray.length(); i++) {
+
+                            map = new HashMap<String, String>();
+                            jsonobject = jsonarray.getJSONObject(i);
+                            // Retrive JSON Objects
+                            map.put("usuario", jsonobject.getString("usuario"));
+                            map.put("comentario", jsonobject.getString("comentario"));
+                            map.put("fecha", jsonobject.getString("fecha"));
+                            // Set the JSON Objects into the array
+                            valornuevo.add(map);
+                            valornuevoo = valornuevo.size();
+                            arraylist.add(map);
+
+                        }
+                        Log.d(TAG, "Nuevo");
+                        eva = true;
                     }
+                } catch (NullPointerException e){
+                    Log.d(TAG, "Sin conexion");
                 } catch (JSONException e) {
                     Log.e("Error", e.getMessage());
                     e.printStackTrace();
                 }
+
+
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void args) {
-                // Locate the listview in listview_main.xml
-                try {
-                    listview = (ListView)getActivity().findViewById(R.id.listview);
-                    // Pass the results into ListViewAdapter.java
-                    adapter = new ListViewAdapter(getActivity(), arraylist);
-                    // Set the adapter to the ListView
-                    listview.setAdapter(adapter);
-                }catch (Exception e ) {
-                    Log.d(TAG, "Error al cargar lista de comentarios");
-                }
 
-                // Close the progressdialog
-                // mProgressDialog.dismiss();
-            }
+
+
+               if (eva = true){
+                   try {
+                       listview = (ListView)getActivity().findViewById(R.id.listview);
+                       // Pass the results into ListViewAdapter.java
+                       adapter = new ListViewAdapter(getActivity(), arraylist);
+                       // Set the adapter to the ListView
+                       listview.setAdapter(adapter);
+                   }catch (Exception e ) {
+                       Log.d(TAG, "Error al cargar lista de comentarios");
+                   }
+               } else {}
+
+
+
+               }
         }
 
-    }
+
+
+}
 

@@ -1,11 +1,13 @@
 package luistrejo.com.materialdesign;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,8 +18,10 @@ import java.io.IOException;
  * Created by Luis Trejo on 30/12/2014.
  */
 public class Servicio extends Service {
-    private static final String TAG = "MyService";
+    private static final String TAG = "Servicio";
     MediaPlayer player;
+    String id = "";
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -25,6 +29,7 @@ public class Servicio extends Service {
 
     @Override
     public void onCreate() {
+
         Toast.makeText(this, "Servicio creado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onCreate");
         player = new MediaPlayer();
@@ -40,9 +45,15 @@ public class Servicio extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Radio cancion = new Radio();
+        id = cancion.id;
+
     }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
      public int onStartCommand (Intent intent,int flags, int startid){
+
         Toast.makeText(this, "Servicio Iniciado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onStart");
         player.start();
@@ -52,10 +63,10 @@ public class Servicio extends Service {
 
         Notification noti = new Notification.Builder(this)
                 .setContentTitle("Radio Bulldogs")
-                .setContentText("La estacion de radio mas perra!")
+                .setContentText(id)
                 .setSmallIcon(R.drawable.ic_logo)
                 .setContentIntent(pIntent)
-                .setTicker("Radio Buldogs! La estacion de radio mas perra." )
+                .setTicker("Radio Buldogs! La estacion de radio mas perra.")
                 .build();
 
 

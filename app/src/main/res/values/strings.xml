@@ -12,41 +12,6 @@
     <string name="errorlogin">Error: Usuario o contraseña incorrectas, por favor intente de nuevo.</string>
     <string name="title_activity_acerca">Acerca de</string>
     <string name="nota_wifi">Nota: Recuerda estar conectado a la red Wi-fi "Radio Bulldogs".</string>
-    <string name="Escuela">Cbtis 122</string>
-    <string name="PDFgrupos">/grupos.pdf</string>
-    <string name="mes1">"Enero"</string>
-    <string name="mes2">Febrero</string>
-    <string name="mes3">Marzo</string>
-    <string name="mes4">Abril</string>
-    <string name="mes5">Mayo</string>
-    <string name="mes6">Junio</string>
-    <string name="fechasmes1">
-                    "7               Regreso de Periodo Vacacional",
-                    "9               Inscripción a Recursos",
-                    "12 - 23     Recursos",
-                    "19 - 21     Inscripción de Alumnos Regulares: 2°, 4° y 6°",
-                    "26 - 28     Captura de Calificaciones de Recurso",
-                    "26 - 30     Capacitación a Docentes"</string>
-    <string name="fechasmes2">
-                    "3 - 6          Planeación Curricular",
-                    "3               Inicio de clases"</string>
-    <string name="fechasmes3">
-                    "1               Fecha",
-                    "2               Fecha",
-                    "3               Fecha"</string>
-    <string name="fechasmes4">
-                    "1               Fecha",
-                    "2               Fecha",
-                    "3               Fecha"</string>
-    <string name="fechasmes5">
-                    "1               Fecha",
-                    "2               Fecha",
-                    "3               Fecha"</string>
-    <string name="fechasmes6">
-                    "1               Fecha",
-                    "2               Fecha",
-                    "3               Fecha"</string>
-
-
+    <string name="title_activity_cambiapass">Cambiapass</string>
 
 </resources>

@@ -11,11 +11,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="Radio Bulldogs" >
-
         </activity>
         <activity
             android:name=".Login"
@@ -34,9 +33,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="luistrejo.com.materialdesign.Login" />
         </activity>
+
         <service
             android:name=".Servicio"
             android:enabled="true" />
+
+        <activity
+            android:name=".Cambiapass"
+            android:label="@string/title_activity_cambiapass"
+            android:parentActivityName=".Login" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="luistrejo.com.materialdesign.Login" />
+        </activity>
     </application>
 
 </manifest>
