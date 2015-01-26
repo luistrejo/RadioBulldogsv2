@@ -30,14 +30,14 @@ import luistrejo.com.materialdesign.Loginaux.Httppostaux;
 import luistrejo.com.materialdesign.MainActivity;
 
 
-public class Login extends Activity{
+public class Login extends Activity {
     EditText user;
     EditText pass;
     Button blogin;
     Httppostaux post;
 
     // String URL_connect="http://www.scandroidtest.site90.com/acces.php";
-    String URL_connect="http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
 
     boolean result_back;
     private ProgressDialog pDialog;
@@ -49,27 +49,27 @@ public class Login extends Activity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        post=new Httppostaux();
+        post = new Httppostaux();
 
-        user= (EditText) findViewById(R.id.etemail);
-        pass= (EditText) findViewById(R.id.etpass);
-        blogin= (Button) findViewById(R.id.btlogin);
+        user = (EditText) findViewById(R.id.etemail);
+        pass = (EditText) findViewById(R.id.etpass);
+        blogin = (Button) findViewById(R.id.btlogin);
         pref = getSharedPreferences("estatuslogin", MODE_PRIVATE);
         editor2 = pref.edit();
 
         estatus();
 
         //Login button action
-        blogin.setOnClickListener(new View.OnClickListener(){
+        blogin.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 //Extreamos datos de los EditText
-                String usuario=user.getText().toString();
-                String passw=pass.getText().toString();
+                String usuario = user.getText().toString();
+                String passw = pass.getText().toString();
 
                 //verificamos si estan en blanco
-                if( checklogindata( usuario , passw )==true){
+                if (checklogindata(usuario, passw) == true) {
 
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
 
@@ -83,7 +83,7 @@ public class Login extends Activity{
                     editor.putString("usuario", usuario);
                     editor.commit();
 
-                }else{
+                } else {
                     //si detecto un error en la primera validacion vibrar y mostrar un Toast con un mensaje de error.
                     err_login();
                 }
@@ -92,25 +92,25 @@ public class Login extends Activity{
         });
 
 
-
     }
 
     //evaluamos el estatus del login
     //si ya esta logueado es true y lo redireccionamos a la activity principal
 
-    public void estatus(){
-        String getStatus=pref.getString("login","nil");
-        if(getStatus.equals("true")){
-            Intent Main = new Intent(this, MainActivity.class );
+    public void estatus() {
+        String getStatus = pref.getString("login", "nil");
+        if (getStatus.equals("true")) {
+            Intent Main = new Intent(this, MainActivity.class);
             startActivity(Main);
+        } else {
+            return;
         }
-        else {return;}
 
     }
 
     //vibra y muestra un Toast
-    public void err_login(){
-        Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    public void err_login() {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(200);
         Toast toast1 = Toast.makeText(this, R.string.errorlogin, Toast.LENGTH_SHORT);
         toast1.show();
@@ -118,18 +118,18 @@ public class Login extends Activity{
 
 
     /*Valida el estado del logueo solamente necesita como parametros el usuario y passw*/
-    public boolean loginstatus(String username ,String password ) {
-        int logstatus=-1;
+    public boolean loginstatus(String username, String password) {
+        int logstatus = -1;
 
     	/*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
-    	 * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-        ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
+         * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
+        ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
 
-        postparameters2send.add(new BasicNameValuePair("usuario",username));
-        postparameters2send.add(new BasicNameValuePair("password",password));
+        postparameters2send.add(new BasicNameValuePair("usuario", username));
+        postparameters2send.add(new BasicNameValuePair("password", password));
 
         //realizamos una peticion y como respuesta obtenes un array JSON
-        JSONArray jdata=post.getserverdata(postparameters2send, URL_connect);
+        JSONArray jdata = post.getserverdata(postparameters2send, URL_connect);
 
       		/*como estamos trabajando de manera local el ida y vuelta sera casi inmediato
       		 * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
@@ -139,12 +139,12 @@ public class Login extends Activity{
         SystemClock.sleep(700);
 
         //si lo que obtuvimos no es null
-        if (jdata!=null && jdata.length() > 0){
+        if (jdata != null && jdata.length() > 0) {
 
             JSONObject json_data; //creamos un objeto JSON
             try {
                 json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                logstatus=json_data.getInt("logstatus");//accedemos al valor
+                logstatus = json_data.getInt("logstatus");//accedemos al valor
                 Log.e("loginstatus", "logstatus= " + logstatus);//muestro por log que obtuvimos
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -152,16 +152,15 @@ public class Login extends Activity{
             }
 
             //validamos el valor obtenido
-            if (logstatus==0){// [{"logstatus":"0"}]
+            if (logstatus == 0) {// [{"logstatus":"0"}]
                 Log.e("loginstatus ", "invalido");
                 return false;
-            }
-            else{// [{"logstatus":"1"}]
+            } else {// [{"logstatus":"1"}]
                 Log.e("loginstatus ", "valido");
                 return true;
             }
 
-        }else{	//json obtenido invalido verificar parte WEB.
+        } else {    //json obtenido invalido verificar parte WEB.
             Log.e("JSON  ", "ERROR");
             return false;
         }
@@ -170,13 +169,13 @@ public class Login extends Activity{
 
 
     //validamos si no hay ningun campo en blanco
-    public boolean checklogindata(String username ,String password ){
+    public boolean checklogindata(String username, String password) {
 
-        if 	(username.equals("") || password.equals("")){
+        if (username.equals("") || password.equals("")) {
             Log.e("Login ui", "checklogindata user or pass error");
             return false;
 
-        }else{
+        } else {
 
             return true;
         }
@@ -191,9 +190,10 @@ public class Login extends Activity{
  * ademas observariamos el mensaje de que la app no responde.
  */
 
-    class asynclogin extends AsyncTask< String, String, String > {
+    class asynclogin extends AsyncTask<String, String, String> {
 
-        String user,pass;
+        String user, pass;
+
         protected void onPreExecute() {
             //para el progress dialog
             pDialog = new ProgressDialog(Login.this);
@@ -205,13 +205,13 @@ public class Login extends Activity{
 
         protected String doInBackground(String... params) {
             //obtnemos usr y pass
-            user=params[0];
-            pass=params[1];
+            user = params[0];
+            pass = params[1];
 
             //enviamos y recibimos y analizamos los datos en segundo plano.
-            if (loginstatus(user,pass)==true){
+            if (loginstatus(user, pass) == true) {
                 return "ok"; //login valido
-            }else{
+            } else {
                 return "err"; //login invalido
             }
 
@@ -223,29 +223,31 @@ public class Login extends Activity{
         protected void onPostExecute(String result) {
 
             pDialog.dismiss();//ocultamos progess dialog.
-            Log.e("onPostExecute=",""+result);
+            Log.e("onPostExecute=", "" + result);
 
-            if (result.equals("ok")){
+            if (result.equals("ok")) {
 
                 // guardar true para login para no mostrar esta activity de nuevo
-                editor2.putString("login","true");
+                editor2.putString("login", "true");
                 editor2.commit();
                 //Si el login fue valido redireccionamos a la main
-                Intent i=new Intent(Login.this, MainActivity.class);
-                i.putExtra("user",user);
+                Intent i = new Intent(Login.this, MainActivity.class);
+                i.putExtra("user", user);
                 startActivity(i);
 
-            }else{
+            } else {
                 err_login();
             }
 
         }
 
     }
+
     public void registrar(View view) {
-        Intent i = new Intent(this, Registro.class );
+        Intent i = new Intent(this, Registro.class);
         startActivity(i);
     }
+
     //evitar que vuelva a la actividad de login
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -46,7 +46,7 @@ public class Registro extends ActionBarActivity {
     private Spinner especialidad;
     private Button insertar;
     Httppostaux post;
-    String URL_connect="http://192.168.0.109/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.0.109/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
 
 
     @Override
@@ -54,28 +54,28 @@ public class Registro extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        post=new Httppostaux();
+        post = new Httppostaux();
 
-        final Vibrator vibrator =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        nombre=(EditText)findViewById(R.id.etnombre);
-        paterno=(EditText)findViewById(R.id.etpaterno);
-        materno=(EditText)findViewById(R.id.etmaterno);
-        usuario=(EditText)findViewById(R.id.etusuario);
-        contrasena=(EditText)findViewById(R.id.etcontraseña);
-        especialidad=(Spinner)findViewById(R.id.spinEspecialidad);
-        insertar=(Button)findViewById(R.id.btregistrar);
+        nombre = (EditText) findViewById(R.id.etnombre);
+        paterno = (EditText) findViewById(R.id.etpaterno);
+        materno = (EditText) findViewById(R.id.etmaterno);
+        usuario = (EditText) findViewById(R.id.etusuario);
+        contrasena = (EditText) findViewById(R.id.etcontraseña);
+        especialidad = (Spinner) findViewById(R.id.spinEspecialidad);
+        insertar = (Button) findViewById(R.id.btregistrar);
         //Registro button action
-        insertar.setOnClickListener(new View.OnClickListener(){
+        insertar.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view){
-                String usuario1=usuario.getText().toString();
+            public void onClick(View view) {
+                String usuario1 = usuario.getText().toString();
 
                 if (!nombre.getText().toString().trim().equalsIgnoreCase("") ||
-                        !paterno.getText().toString().trim().equalsIgnoreCase("")||
-                        !materno.getText().toString().trim().equalsIgnoreCase("")||
-                        !usuario.getText().toString().trim().equalsIgnoreCase("")||
-                        !contrasena.getText().toString().trim().equalsIgnoreCase("")||
+                        !paterno.getText().toString().trim().equalsIgnoreCase("") ||
+                        !materno.getText().toString().trim().equalsIgnoreCase("") ||
+                        !usuario.getText().toString().trim().equalsIgnoreCase("") ||
+                        !contrasena.getText().toString().trim().equalsIgnoreCase("") ||
                         !especialidad.getSelectedItem().toString().trim().equalsIgnoreCase(""))
 
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
@@ -117,15 +117,15 @@ public class Registro extends ActionBarActivity {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost=new HttpPost("http://192.168.0.109/RadioB/nuevousuario.php");
+        httppost = new HttpPost("http://192.168.0.109/RadioB/nuevousuario.php");
         //Añadimos los datos
         nameValuePairs = new ArrayList<NameValuePair>(6);
-        nameValuePairs.add(new BasicNameValuePair("nombre",nombre.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("paterno",paterno.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("materno",materno.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("usuario",usuario.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("contrasena",contrasena.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("especialidad",especialidad.getSelectedItem().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("paterno", paterno.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("materno", materno.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("usuario", usuario.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("contrasena", contrasena.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("especialidad", especialidad.getSelectedItem().toString().trim()));
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -140,14 +140,16 @@ public class Registro extends ActionBarActivity {
         }
         return false;
     }
-    public class Insertar extends AsyncTask<String,String,String> {
+
+    public class Insertar extends AsyncTask<String, String, String> {
         private Activity context;
 
-        Insertar(Activity context){
-            this.context=context;
+        Insertar(Activity context) {
+            this.context = context;
         }
+
         @Override
-        protected String doInBackground(String... params){
+        protected String doInBackground(String... params) {
             if (insertar())
                 context.runOnUiThread(new Runnable() {
                     @Override
@@ -158,7 +160,7 @@ public class Registro extends ActionBarActivity {
                         materno.setText("");
                         usuario.setText("");
                         contrasena.setText("");
-                        Intent i=new Intent(Registro.this, Login.class);
+                        Intent i = new Intent(Registro.this, Login.class);
                         startActivity(i);
                     }
                 });
@@ -178,16 +180,16 @@ public class Registro extends ActionBarActivity {
     //Valida el estado del logueo solamente necesita como parametros el usuario y passw*/
 
     public boolean loginstatus(String username) {
-        int logstatus=-1;
+        int logstatus = -1;
 
     	/*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
-    	 * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-        ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
+         * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
+        ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
 
-        postparameters2send.add(new BasicNameValuePair("usuario",username));
+        postparameters2send.add(new BasicNameValuePair("usuario", username));
 
         //realizamos una peticion y como respuesta obtenes un array JSON
-        JSONArray jdata=post.getserverdata(postparameters2send, URL_connect);
+        JSONArray jdata = post.getserverdata(postparameters2send, URL_connect);
 
       		/*como estamos trabajando de manera local el ida y vuelta sera casi inmediato
       		 * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
@@ -197,12 +199,12 @@ public class Registro extends ActionBarActivity {
         //SystemClock.sleep(700);
 
         //si lo que obtuvimos no es null
-        if (jdata!=null && jdata.length() > 0){
+        if (jdata != null && jdata.length() > 0) {
 
             JSONObject json_data; //creamos un objeto JSON
             try {
                 json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                logstatus=json_data.getInt("logstatus");//accedemos al valor
+                logstatus = json_data.getInt("logstatus");//accedemos al valor
                 Log.e("loginstatus", "logstatus= " + logstatus);//muestro por log que obtuvimos
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -210,25 +212,25 @@ public class Registro extends ActionBarActivity {
             }
 
             //validamos el valor obtenido
-            if (logstatus==0){// [{"logstatus":"0"}]
+            if (logstatus == 0) {// [{"logstatus":"0"}]
                 Log.e("usuariovalidacion ", "Valido");
                 return false;
-            }
-            else{// [{"logstatus":"1"}]
+            } else {// [{"logstatus":"1"}]
                 Log.e("usuariovalidacion ", "Este usuario ya existe.");
                 return true;
             }
 
-        }else{	//json obtenido invalido verificar parte WEB.
+        } else {    //json obtenido invalido verificar parte WEB.
             Log.e("JSON  ", "ERROR");
             return false;
         }
 
     }
 
-    class asynclogin extends AsyncTask< String, String, String > {
+    class asynclogin extends AsyncTask<String, String, String> {
 
         String usuario;
+
         protected void onPreExecute() {
             //para el progress dialog
 
@@ -236,12 +238,12 @@ public class Registro extends ActionBarActivity {
 
         protected String doInBackground(String... params) {
             //obtnemos usr y pass
-            usuario=params[0];
+            usuario = params[0];
 
             //enviamos y recibimos y analizamos los datos en segundo plano.
-            if (loginstatus(usuario)==true){
+            if (loginstatus(usuario) == true) {
                 return "ok"; //login valido
-            }else{
+            } else {
                 return "err"; //login invalido
             }
 
@@ -252,12 +254,12 @@ public class Registro extends ActionBarActivity {
         protected void onPostExecute(String result) {
 
             //pDialog.dismiss();//ocultamos progess dialog.
-            Log.e("onPostExecute=",""+result);
+            Log.e("onPostExecute=", "" + result);
 
-            if (result.equals("ok")){
+            if (result.equals("ok")) {
                 usuarioexistente();
 
-            }else{
+            } else {
                 Log.d(TAG, "Usuario valido, pasamos a registrarlos a la bd.");
                 new Insertar(Registro.this).execute();
             }
@@ -265,8 +267,9 @@ public class Registro extends ActionBarActivity {
         }
 
     }
+
     public void usuarioexistente() {
-        Vibrator vibrator1 =(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator vibrator1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator1.vibrate(200);
         Toast.makeText(Registro.this, "Nombre de usuario ya en uso, por favor intenta con otro.", Toast.LENGTH_LONG).show();
     }

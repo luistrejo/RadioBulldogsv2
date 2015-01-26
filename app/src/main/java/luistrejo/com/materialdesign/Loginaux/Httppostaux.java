@@ -25,22 +25,21 @@ import java.util.ArrayList;
 public class Httppostaux {
 
 
-
     InputStream is = null;
     String result = "";
 
-    public JSONArray getserverdata(ArrayList<NameValuePair> parameters, String urlwebserver ){
+    public JSONArray getserverdata(ArrayList<NameValuePair> parameters, String urlwebserver) {
 
         //conecta via http y envia un post.
-        httppostconnect(parameters,urlwebserver);
+        httppostconnect(parameters, urlwebserver);
 
-        if (is!=null){//si obtuvo una respuesta
+        if (is != null) {//si obtuvo una respuesta
 
             getpostresponse();
 
             return getjsonarray();
 
-        }else{
+        } else {
 
             return null;
 
@@ -50,10 +49,10 @@ public class Httppostaux {
 
 
     //peticion HTTP
-    private void httppostconnect(ArrayList<NameValuePair> parametros, String urlwebserver){
+    private void httppostconnect(ArrayList<NameValuePair> parametros, String urlwebserver) {
 
         //
-        try{
+        try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(urlwebserver);
             httppost.setEntity(new UrlEncodedFormEntity(parametros));
@@ -62,17 +61,17 @@ public class Httppostaux {
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.e("log_tag", "Error in http connection " + e.toString());
         }
 
     }
 
-    public void getpostresponse(){
+    public void getpostresponse() {
 
         //Convierte respuesta a String
-        try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -80,21 +79,20 @@ public class Httppostaux {
             }
             is.close();
 
-            result=sb.toString();
+            result = sb.toString();
             Log.e("getpostresponse", " result= " + sb.toString());
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.e("log_tag", "Error converting result " + e.toString());
         }
     }
 
-    public JSONArray getjsonarray(){
+    public JSONArray getjsonarray() {
         //parse json data
-        try{
+        try {
             JSONArray jArray = new JSONArray(result);
 
             return jArray;
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             Log.e("log_tag", "Error parsing data " + e.toString());
             return null;
         }

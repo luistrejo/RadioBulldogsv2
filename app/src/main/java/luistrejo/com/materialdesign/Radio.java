@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
@@ -30,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
 import java.io.InputStream;
 
 
@@ -52,17 +52,18 @@ public class Radio extends Fragment implements View.OnClickListener {
     JSONArray user = null;
     TextView uid, name1;
     Handler mHandler = new Handler();
-    Handler mHandler2 = new Handler();
     ImageView caratula;
-    public static String id = "", name = "";
+    public static String id, name;
     View rootView;
-    Bitmap caratulaguardada, fondoguardada;
+    String idguardado;
+    public static Bitmap caratulaimg, fondo;
+    Context context;
+    BitmapDrawable fondofinal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        context = container.getContext();
         rootView = inflater.inflate(R.layout.fragment_radio, container, false);
-
         initControls();
         volumeSeekbar = (SeekBar) rootView.findViewById(R.id.seekBar1);
         audioManager = (AudioManager) this.getActivity().getSystemService(Context.AUDIO_SERVICE);
@@ -73,10 +74,12 @@ public class Radio extends Fragment implements View.OnClickListener {
         caratula = (ImageView) rootView.findViewById(R.id.caratula);
         uid = (TextView) rootView.findViewById(R.id.titulocancion);
         name1 = (TextView) rootView.findViewById(R.id.nextcancion);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            new Canciones().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new informacioncanciones().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new Canciones().execute();
+            new informacioncanciones().execute();
         }
 
         new Thread(new Runnable() {
@@ -92,49 +95,9 @@ public class Radio extends Fragment implements View.OnClickListener {
                             public void run() {
                                 // TODO Auto-generated method stub
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                    new Canciones().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                    new informacioncanciones().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                                 } else {
-                                    new Canciones().execute();
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                    }
-                }
-            }
-        }).start();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            new DownloadImageTask((ImageView) rootView.findViewById(R.id.caratula))
-                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://192.168.0.109:8000/playingart?sid=1");
-            new descargafondo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            new DownloadImageTask((ImageView) rootView.findViewById(R.id.caratula))
-                    .execute("http://192.168.0.109:8000/playingart?sid=1");
-            new descargafondo().execute();
-        }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                while (true) {
-                    try {
-                        Thread.sleep(8000);
-                        mHandler2.post(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                // TODO Auto-generated method stub
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                    new DownloadImageTask((ImageView) rootView.findViewById(R.id.caratula))
-                                            .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://192.168.0.109:8000/playingart?sid=1");
-                                    new descargafondo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                                } else {
-                                    new DownloadImageTask((ImageView) rootView.findViewById(R.id.caratula))
-                                            .execute("http://192.168.0.109:8000/playingart?sid=1");
-                                    new descargafondo().execute();
+                                    new informacioncanciones().execute();
 
                                 }
                             }
@@ -145,9 +108,6 @@ public class Radio extends Fragment implements View.OnClickListener {
                 }
             }
         }).start();
-
-        caratulaguardada = BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo);
-        fondoguardada = BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo);
 
         return rootView;
     }
@@ -201,139 +161,140 @@ public class Radio extends Fragment implements View.OnClickListener {
         }
     }
 
-    public class Canciones extends AsyncTask<String, String, JSONObject> {
+    public class informacioncanciones extends AsyncTask<String, String, JSONObject> {
 
         @Override
-        public JSONObject doInBackground(String... args) {
+        protected JSONObject doInBackground(String... args) {
             JSONParser jParser = new JSONParser();
-            // Getting JSON from URL
             JSONObject json = jParser.getJSONFromUrl(url);
             return json;
         }
 
         @Override
-        public void onPostExecute(JSONObject json) {
+        protected void onPostExecute(JSONObject json) {
+
 
             try {
-                // Getting JSON Array
                 user = json.getJSONArray(TAG_USER);
-                JSONObject c = user.getJSONObject(0);
-                // Storing  JSON item in a Variable
+            } catch (JSONException e) {
+                id = "Sin conexion";
+                name = "Sin conexion";
+                Log.d(TAG, "Fuera de linea");
+            }
+            JSONObject c = null;
+            try {
+                c = user.getJSONObject(0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d(TAG, "Fuera de linea");
+            }
+            try {
                 id = c.getString(TAG_ID);
+                Servicio cancion = new Servicio();
+                cancion.idnoti = id;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                id = "No disponible";
+            }
+            try {
                 name = c.getString(TAG_NAME);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                name = "No disponible";
+            }
 
-                //Set JSON Data in TextView
+
+            if (id.equals(idguardado) == false) {
+                try {
+                    idguardado = c.getString(TAG_ID);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 uid.setText(id);
                 name1.setText(name);
 
-            } catch (NullPointerException e) {
-                Log.d(TAG, "Fuera de linea");
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    new caratulayfondo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    new caratulayfondo().execute();
+                }
             }
+
+
         }
+
+
     }
 
-    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+    private class caratulayfondo extends AsyncTask<Void, Void, Void> {
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
+        protected Void doInBackground(Void... urls) {
+            String urlcaratula = "http://192.168.0.109:8000/playingart?sid=1";
 
+            fondo = null;
 
             try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
+                InputStream in = new java.net.URL(urlcaratula).openStream();
+                caratulaimg = BitmapFactory.decodeStream(in);
+
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
-            return mIcon11;
-        }
 
-        protected void onPostExecute(Bitmap result) {
-
-            if (result == null) {
-                bmImage.setImageResource(R.drawable.bull);
-                Log.d(TAG, "Caratula vacia");
-
-            } else {
-                if (result.sameAs(caratulaguardada) == false) {
-                    bmImage.setImageBitmap(result);
-                    caratulaguardada = Bitmap.createBitmap(result);
-
-                } else {
-                    Log.d(TAG, "Misma caratula");
-                }
-            }
-        }
-    }
-
-    public class descargafondo extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = "http://192.168.0.109:8000/playingart?sid=1";
-            Bitmap fondo = null;
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 10;
             try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
+                InputStream in = new java.net.URL(urlcaratula).openStream();
                 fondo = BitmapFactory.decodeStream(in, null, options);
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
-            return fondo;
+            return null;
         }
 
-        protected void onPostExecute(Bitmap result) {
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
 
-            if (result == null) {
+            if (fondo == null) {
+                caratula.setImageResource(R.drawable.bull);
                 rootView.setBackgroundColor(getResources().getColor(R.color.ColorPrimaryDark));
-                Log.d(TAG, "Fondo vacio");
-
+                Log.d(TAG, "Sin caratula y fondo que mostrar");
             } else {
-                if (result.sameAs(fondoguardada) == false) {
-                    fondoguardada = Bitmap.createBitmap(result);
+                caratula.setImageBitmap(caratulaimg);
+                try {
+                    Bitmap outputBitmap = Bitmap.createBitmap(fondo.getHeight(),
+                            fondo.getWidth(), Bitmap.Config.ARGB_8888);
 
-                    Bitmap outputBitmap = Bitmap.createBitmap(result.getHeight(),
-                            result.getWidth(), Bitmap.Config.ARGB_8888);
-
-                    RenderScript rs = RenderScript.create(Radio.this.getActivity());
+                    RenderScript rs = RenderScript.create(context);
                     ScriptIntrinsicBlur theIntrinsic = ScriptIntrinsicBlur
                             .create(rs, Element.U8_4(rs));
-                    Allocation tmpIn = Allocation.createFromBitmap(rs, result);
+                    Allocation tmpIn = Allocation.createFromBitmap(rs, fondo);
                     Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
                     theIntrinsic.setRadius(20);
                     theIntrinsic.setInput(tmpIn);
                     theIntrinsic.forEach(tmpOut);
                     tmpOut.copyTo(outputBitmap);
 
-
-                    BitmapDrawable fondo = new BitmapDrawable(getResources(), outputBitmap);
-
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                        rootView.setBackgroundDrawable(fondo);
-                    } else {
-
-                        rootView.setBackground(fondo);
-                    }
-                    Log.d(TAG, "Fondo actualizado");
-                } else {
-                    Log.d(TAG, "Mismo fondo");
+                    fondofinal = new BitmapDrawable(getResources(), outputBitmap);
+                } catch (IllegalStateException e) {
+                    Log.d(TAG, "Error cargando Renderscript");
                 }
 
 
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    rootView.setBackgroundDrawable(fondofinal);
+                } else {
+                    rootView.setBackground(fondofinal);
+                }
+                Log.d(TAG, "Caratula y fondo actualizados.");
+
             }
         }
-
     }
-
-
 }

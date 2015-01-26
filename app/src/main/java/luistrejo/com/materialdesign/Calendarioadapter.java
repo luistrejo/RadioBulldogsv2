@@ -26,16 +26,21 @@ import android.widget.SectionIndexer;
 public class Calendarioadapter extends ListView {
 
 
-
     //-- inner classes
 
-    /** List adapter to be implemented for being used with PinnedSectionListView adapter. */
+    /**
+     * List adapter to be implemented for being used with PinnedSectionListView adapter.
+     */
     public static interface PinnedSectionListAdapter extends ListAdapter {
-        /** This method shall return 'true' if views of given type has to be pinned. */
+        /**
+         * This method shall return 'true' if views of given type has to be pinned.
+         */
         boolean isItemViewTypePinned(int viewType);
     }
 
-    /** Wrapper class for pinned section view and its position in the list. */
+    /**
+     * Wrapper class for pinned section view and its position in the list.
+     */
     static class PinnedSection {
         public View view;
         public int position;
@@ -56,19 +61,29 @@ public class Calendarioadapter extends ListView {
     private int mSectionsDistanceY;
     private int mShadowHeight;
 
-    /** Delegating listener, can be null. */
+    /**
+     * Delegating listener, can be null.
+     */
     OnScrollListener mDelegateOnScrollListener;
 
-    /** Shadow for being recycled, can be null. */
+    /**
+     * Shadow for being recycled, can be null.
+     */
     PinnedSection mRecycleSection;
 
-    /** shadow instance with a pinned view, can be null. */
+    /**
+     * shadow instance with a pinned view, can be null.
+     */
     PinnedSection mPinnedSection;
 
-    /** Pinned view Y-translation. We use it to stick pinned view to the next section. */
+    /**
+     * Pinned view Y-translation. We use it to stick pinned view to the next section.
+     */
     int mTranslateY;
 
-    /** Scroll listener which does the magic */
+    /**
+     * Scroll listener which does the magic
+     */
     private final OnScrollListener mOnScrollListener = new OnScrollListener() {
 
         @Override
@@ -118,12 +133,17 @@ public class Calendarioadapter extends ListView {
         }
     };
 
-    /** Default change observer. */
+    /**
+     * Default change observer.
+     */
     private final DataSetObserver mDataSetObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
             post(recreatePinnedShadow);
-        };
+        }
+
+        ;
+
         @Override
         public void onInvalidated() {
             post(recreatePinnedShadow);
@@ -164,7 +184,7 @@ public class Calendarioadapter extends ListView {
         if (visible) {
             if (mShadowDrawable == null) {
                 mShadowDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                        new int[] { Color.parseColor("#ffa0a0a0"), Color.parseColor("#50a0a0a0"), Color.parseColor("#00a0a0a0")});
+                        new int[]{Color.parseColor("#ffa0a0a0"), Color.parseColor("#50a0a0a0"), Color.parseColor("#00a0a0a0")});
                 mShadowHeight = (int) (8 * getResources().getDisplayMetrics().density);
             }
         } else {
@@ -175,7 +195,9 @@ public class Calendarioadapter extends ListView {
         }
     }
 
-    /** Create shadow wrapper with a pinned view for a view at given position */
+    /**
+     * Create shadow wrapper with a pinned view for a view at given position
+     */
     void createPinnedShadow(int position) {
 
         // try to recycle shadow
@@ -218,7 +240,9 @@ public class Calendarioadapter extends ListView {
         mPinnedSection = pinnedShadow;
     }
 
-    /** Destroy shadow wrapper for currently pinned view */
+    /**
+     * Destroy shadow wrapper for currently pinned view
+     */
     void destroyPinnedShadow() {
         if (mPinnedSection != null) {
             // keep shadow for being recycled later
@@ -275,7 +299,9 @@ public class Calendarioadapter extends ListView {
 
     }
 
-    /** Makes sure we have an actual pinned shadow for given position. */
+    /**
+     * Makes sure we have an actual pinned shadow for given position.
+     */
     void ensureShadowForPosition(int sectionPosition, int firstVisibleItem, int visibleItemCount) {
 
         if (mPinnedSection != null && mPinnedSection.position != sectionPosition) {
@@ -346,7 +372,7 @@ public class Calendarioadapter extends ListView {
         }
 
         // try slow way by looking through to the next section item above
-        for (int position=fromPosition; position>=0; position--) {
+        for (int position = fromPosition; position >= 0; position--) {
             int viewType = adapter.getItemViewType(position);
             if (isItemViewTypePinned(adapter, viewType)) return position;
         }
@@ -519,7 +545,7 @@ public class Calendarioadapter extends ListView {
         mTouchRect.bottom += mTranslateY + getPaddingTop();
         mTouchRect.left += getPaddingLeft();
         mTouchRect.right -= getPaddingRight();
-        return mTouchRect.contains((int)x, (int)y);
+        return mTouchRect.contains((int) x, (int) y);
     }
 
     private void clearTouchTarget() {
@@ -535,7 +561,7 @@ public class Calendarioadapter extends ListView {
 
         OnItemClickListener listener = getOnItemClickListener();
         if (listener != null) {
-            View view =  mPinnedSection.view;
+            View view = mPinnedSection.view;
             playSoundEffect(SoundEffectConstants.CLICK);
             if (view != null) {
                 view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
@@ -548,7 +574,7 @@ public class Calendarioadapter extends ListView {
 
     public static boolean isItemViewTypePinned(ListAdapter adapter, int viewType) {
         if (adapter instanceof HeaderViewListAdapter) {
-            adapter = ((HeaderViewListAdapter)adapter).getWrappedAdapter();
+            adapter = ((HeaderViewListAdapter) adapter).getWrappedAdapter();
         }
         return ((PinnedSectionListAdapter) adapter).isItemViewTypePinned(viewType);
     }
@@ -558,9 +584,9 @@ public class Calendarioadapter extends ListView {
      * ListView, or bottom edge of the pinned view iff it exists. (If in touch mode, the item will
      * not be selected but it will still be positioned appropriately.)
      *
-     * @param position Index (starting at 0) of the data item to be selected.
-     * @param y The distance from the top edge of the ListView (plus padding) that the item will be
-     *            positioned.
+     * @param position        Index (starting at 0) of the data item to be selected.
+     * @param y               The distance from the top edge of the ListView (plus padding) that the item will be
+     *                        positioned.
      * @param adjustForHeader If true, will additionally scroll down so first item will be below header
      */
     public void setSelectionFromTop(final int position, final int y, boolean adjustForHeader) {

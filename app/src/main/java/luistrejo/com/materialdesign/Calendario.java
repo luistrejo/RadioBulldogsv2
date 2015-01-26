@@ -17,13 +17,13 @@ import android.widget.Toast;
 import luistrejo.com.materialdesign.Calendarioadapter;
 import luistrejo.com.materialdesign.Calendarioadapter.PinnedSectionListAdapter;
 
-public class Calendario extends ListFragment implements View.OnClickListener{
+public class Calendario extends ListFragment implements View.OnClickListener {
 
     static class SimpleAdapter extends ArrayAdapter<Item> implements PinnedSectionListAdapter {
 
-        private static final int[] COLORS = new int[] {
+        private static final int[] COLORS = new int[]{
                 R.color.green_light, R.color.orange_light,
-                R.color.blue_light, R.color.red_light };
+                R.color.blue_light, R.color.red_light};
 
         public SimpleAdapter(Context context, int resource, int textViewResourceId) {
             super(context, resource, textViewResourceId);
@@ -31,7 +31,7 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             final int sectionsNumber = 6;
             final String[] mes = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"};
             final String[][] fechas = {
-                           {"7 - 8              Solicitud de papeletas (Pago de recurso)",
+                    {"7 - 8              Solicitud de papeletas (Pago de recurso)",
                             "9               Inscripción a Recursos",
                             "12 - 25     Curso de Capacitacion CENALTEC (Ensamble de aéro-estructuras)     ",
                             "12 - 23     Recursos",
@@ -45,13 +45,13 @@ public class Calendario extends ListFragment implements View.OnClickListener{
                             "26 - 30     Planeacion Curricular",
                             "26 - 30     Trabajos de Academias Locales",
                             "30             Colegiado Académico"},
-                          { "2               Suspensión de Labores",
+                    {"2               Suspensión de Labores",
                             "3               Inicio de clases - Ceremonia Civica(T.M. 9:00 hrs, T.V. 16:45 hrs)",
                             "3 - 6              Reinscripción de Alumnos Irregulares: 2°, 4° y 6°",
                             "17 - 20     Entrega de Planeación Académica",
                             "17 - 20     Concurso Estatal de Prototipos",
                             "17 - 20     XV Festival Académico Local 2015"},
-                          { "2 - 6              1° Evaluacion Parcial",
+                    {"2 - 6              1° Evaluacion Parcial",
                             "3 - 6              Festival Académico Etapa Estatal",
                             "9 - 11       Captura calificaciones 1° Evaluacion Parcial",
                             "11 - 13     1° Academia Local",
@@ -63,16 +63,16 @@ public class Calendario extends ListFragment implements View.OnClickListener{
                             "23 - 27     Supervisión en el Aula",
                             "24 - 27     Festival Académico Etapa Nacional",
                             "30 - 31     Periodo Vacional"},
-                          { "1 - 2              Periodo Vacacional",
+                    {"1 - 2              Periodo Vacacional",
                             "20 - 24     2° Evaluación Parcial",
                             "27 - 29     Captura de la 2° Evaluación Parcial",
                             "27 - 30     Semana Nacional de Vinculación",
                             "27 - 30     2° Academia Local",
                             "4 y 6              2°"},
-                          { "1               Fecha",
+                    {"1               Fecha",
                             "2               Fecha",
                             "3               Fecha"},
-                          { "1               Fecha",
+                    {"1               Fecha",
                             "2               Fecha",
                             "3               Fecha"}};
 
@@ -80,7 +80,7 @@ public class Calendario extends ListFragment implements View.OnClickListener{
 
             int sectionPosition = 0, listPosition = 0;
 
-            for (char i=0; i<sectionsNumber; i++) {
+            for (char i = 0; i < sectionsNumber; i++) {
                 Item section = new Item(Item.SECTION, mes[i]);
                 section.sectionPosition = sectionPosition;
                 section.listPosition = listPosition++;
@@ -89,7 +89,7 @@ public class Calendario extends ListFragment implements View.OnClickListener{
 
                 final int itemsNumber = fechas[i].length;
 
-                for (int j=0;j<itemsNumber;j++) {
+                for (int j = 0; j < itemsNumber; j++) {
                     Item item = new Item(Item.ITEM, fechas[i][j]);
                     item.sectionPosition = sectionPosition;
                     item.listPosition = listPosition++;
@@ -102,10 +102,14 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             }
         }
 
-        protected void prepareSections(int sectionsNumber) { }
-        protected void onSectionAdded(Item section, int sectionPosition) { }
+        protected void prepareSections(int sectionsNumber) {
+        }
 
-        @Override public View getView(int position, View convertView, ViewGroup parent) {
+        protected void onSectionAdded(Item section, int sectionPosition) {
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getView(position, convertView, parent);
             view.setTextColor(Color.DKGRAY);
             view.setTag("" + position);
@@ -117,11 +121,13 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             return view;
         }
 
-        @Override public int getViewTypeCount() {
+        @Override
+        public int getViewTypeCount() {
             return 2;
         }
 
-        @Override public int getItemViewType(int position) {
+        @Override
+        public int getItemViewType(int position) {
             return getItem(position).type;
         }
 
@@ -140,26 +146,31 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             super(context, resource, textViewResourceId);
         }
 
-        @Override protected void prepareSections(int sectionsNumber) {
+        @Override
+        protected void prepareSections(int sectionsNumber) {
             sections = new Item[sectionsNumber];
         }
 
-        @Override protected void onSectionAdded(Item section, int sectionPosition) {
+        @Override
+        protected void onSectionAdded(Item section, int sectionPosition) {
             sections[sectionPosition] = section;
         }
 
-        @Override public Item[] getSections() {
+        @Override
+        public Item[] getSections() {
             return sections;
         }
 
-        @Override public int getPositionForSection(int section) {
+        @Override
+        public int getPositionForSection(int section) {
             if (section >= sections.length) {
                 section = sections.length - 1;
             }
             return sections[section].listPosition;
         }
 
-        @Override public int getSectionForPosition(int position) {
+        @Override
+        public int getSectionForPosition(int position) {
             if (position >= getCount()) {
                 position = getCount() - 1;
             }
@@ -184,7 +195,8 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             this.text = text;
         }
 
-        @Override public String toString() {
+        @Override
+        public String toString() {
             return text;
         }
 
@@ -202,7 +214,7 @@ public class Calendario extends ListFragment implements View.OnClickListener{
         return rootView;
     }
 
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
@@ -234,9 +246,6 @@ public class Calendario extends ListFragment implements View.OnClickListener{
             Toast.makeText(this.getActivity(), "Item " + position, Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 
 
     private void initializePadding() {
@@ -280,10 +289,8 @@ public class Calendario extends ListFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this.getActivity(), "Item: " + v.getTag() , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getActivity(), "Item: " + v.getTag(), Toast.LENGTH_SHORT).show();
     }
-
-
 
 
 }

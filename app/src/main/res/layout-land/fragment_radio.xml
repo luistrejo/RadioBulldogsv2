@@ -11,29 +11,30 @@
 
 
 
-
-
-
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:id="@+id/caratula"
         android:scaleType="fitXY"
         android:src="@drawable/bull"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-
-
-
-
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/caratula"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/transparente">
+        android:background="@drawable/transparente"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/caratula"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentEnd="true"
+        >
 
         <TextView
         android:layout_width="wrap_content"
@@ -57,7 +58,7 @@
             android:id="@+id/startPlaying"
             android:onClick="startPlaying"
             android:text="Play"
-            android:layout_above="@+id/seekBar1"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -67,9 +68,9 @@
             android:id="@+id/buttonStopPlay"
             android:onClick="stopPlaying"
             android:text="Stop"
-            android:layout_above="@+id/seekBar1"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/seekBar1"
+            android:layout_alignEnd="@+id/seekBar1" />
 
         <SeekBar
             android:layout_width="wrap_content"
@@ -80,6 +81,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/textView16"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -117,10 +119,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Estas escuchando:"
             android:id="@+id/textView7"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:textColor="#ffffffff" />
+            android:textColor="#ffffffff"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
 </RelativeLayout>
