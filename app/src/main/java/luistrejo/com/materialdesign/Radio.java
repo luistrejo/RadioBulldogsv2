@@ -59,6 +59,8 @@ public class Radio extends Fragment implements View.OnClickListener {
     public static Bitmap caratulaimg, fondo;
     Context context;
     BitmapDrawable fondofinal;
+    JSONObject json;
+    JSONObject c;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -165,51 +167,49 @@ public class Radio extends Fragment implements View.OnClickListener {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            JSONParser jParser = new JSONParser();
-            JSONObject json = jParser.getJSONFromUrl(url);
+            try {
+                JSONParser jParser = new JSONParser();
+                json = jParser.getJSONFromUrl(url);
+            } catch (NullPointerException e) {
+                Log.d(TAG, "fuera");
+            }
             return json;
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
 
-
             try {
                 user = json.getJSONArray(TAG_USER);
-            } catch (JSONException e) {
-                id = "Sin conexion";
-                name = "Sin conexion";
-                Log.d(TAG, "Fuera de linea");
-            }
-            JSONObject c = null;
-            try {
+                c = null;
                 c = user.getJSONObject(0);
+                name = c.getString(TAG_NAME);
+                Servicio cancion = new Servicio();
+                cancion.idnoti = id;
+
+                if (name == null) {
+                    name = "No disponible";
+                }
+            } catch (NullPointerException e) {
+                Log.d(TAG, "Fuerda de linea");
+                id = "Fuera de linea";
+                name = "Fuera de linea";
             } catch (JSONException e) {
-                e.printStackTrace();
-                Log.d(TAG, "Fuera de linea");
+                name = "No disponible";
+                Log.d(TAG, "No disponible");
             }
             try {
                 id = c.getString(TAG_ID);
-                Servicio cancion = new Servicio();
-                cancion.idnoti = id;
+            } catch (NullPointerException e) {
+                id = "Fuera de linea";
             } catch (JSONException e) {
-                e.printStackTrace();
-                id = "No disponible";
-            }
-            try {
-                name = c.getString(TAG_NAME);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                name = "No disponible";
+                Log.d(TAG, id);
             }
 
 
             if (id.equals(idguardado) == false) {
-                try {
-                    idguardado = c.getString(TAG_ID);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                idguardado = id;
+
 
                 uid.setText(id);
                 name1.setText(name);
@@ -233,13 +233,12 @@ public class Radio extends Fragment implements View.OnClickListener {
 
         protected Void doInBackground(Void... urls) {
             String urlcaratula = "http://192.168.0.109:8000/playingart?sid=1";
-
+            caratulaimg = null;
             fondo = null;
 
             try {
                 InputStream in = new java.net.URL(urlcaratula).openStream();
                 caratulaimg = BitmapFactory.decodeStream(in);
-
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();

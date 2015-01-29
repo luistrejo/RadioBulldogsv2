@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentManager.beginTransaction().replace(R.id.frame_container, new Radio()).commit();
+        //fragmentManager.beginTransaction().replace(R.id.frame_container, new Radio()).commit();
 
     /* Assinging the toolbar object ot the view
     and setting the the Action bar to our toolbar
@@ -112,7 +112,6 @@ public class MainActivity extends ActionBarActivity {
                     Fragment fragment = null;
 
                     switch (recyclerView.getChildPosition(child)) {
-
                         case 1: {
                             fragment = new Radio();
                             title = "Radio Bulldogs";
@@ -160,7 +159,6 @@ public class MainActivity extends ActionBarActivity {
 
                         default:
                             break;
-
                     }
                     if (fragment != null) {
                         try {
@@ -216,6 +214,10 @@ public class MainActivity extends ActionBarActivity {
         Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
 
+        if (savedInstanceState == null) {
+            fragmentManager.beginTransaction().replace(R.id.frame_container, new Radio()).commit();
+            setActionBarTitle("Radio Bulldogs");
+        }
     }
 
     public void setActionBarTitle(String title) {

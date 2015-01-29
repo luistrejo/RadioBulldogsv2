@@ -56,7 +56,7 @@ public class Login extends Activity {
         blogin = (Button) findViewById(R.id.btlogin);
         pref = getSharedPreferences("estatuslogin", MODE_PRIVATE);
         editor2 = pref.edit();
-
+        TextView newcuenta = (TextView) findViewById(R.id.newcuenta);
         estatus();
 
         //Login button action
@@ -91,7 +91,13 @@ public class Login extends Activity {
             }
         });
 
-
+        newcuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Login.this, Registro.class);
+                startActivity(i);
+            }
+        });
     }
 
     //evaluamos el estatus del login
@@ -132,7 +138,7 @@ public class Login extends Activity {
         JSONArray jdata = post.getserverdata(postparameters2send, URL_connect);
 
       		/*como estamos trabajando de manera local el ida y vuelta sera casi inmediato
-      		 * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
+               * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
       		 * observar el progressdialog
       		 * la podemos eliminar si queremos
       		 */
@@ -241,11 +247,6 @@ public class Login extends Activity {
 
         }
 
-    }
-
-    public void registrar(View view) {
-        Intent i = new Intent(this, Registro.class);
-        startActivity(i);
     }
 
     //evitar que vuelva a la actividad de login

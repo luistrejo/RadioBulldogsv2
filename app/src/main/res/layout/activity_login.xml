@@ -1,91 +1,102 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    android:background="@color/fondo">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar">
-    </include>
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/nota_wifi"
+        android:textAlignment="center"
+        android:textSize="10dp"
+        android:textColor="#ffffffff" />
 
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="74dp"
+        android:text="Radio Bulldogs"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tool_bar"
-        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Crear cuenta"
+        android:id="@+id/newcuenta"
+        android:layout_marginTop="14dp"
+        android:textColor="#ffffffff"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView17"
+        android:layout_centerHorizontal="true"
+        android:background="@color/blancofondo"
+        android:id="@+id/linearLayout">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
             android:id="@+id/etemail"
-            android:hint="Nombre de Usuario"
-            android:layout_marginBottom="61dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Usuario"
+            android:inputType="textPersonName"
             android:layout_above="@+id/etpass"
             android:layout_centerHorizontal="true"
-            android:background="@android:drawable/editbox_background_normal" />
+            android:textColorHint="#ff1abc9d"
+            android:drawableLeft="@drawable/ic_usuario"
+            android:textColor="#ff1abc9d"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:clickable="false" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
             android:id="@+id/etpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
             android:hint="Contraseña"
-            android:layout_marginBottom="53dp"
-            android:layout_above="@+id/btlogin"
-            android:layout_centerHorizontal="true"
-            android:background="@android:drawable/editbox_background_normal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Acceso"
-            android:id="@+id/textView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp"
-            />
+            android:inputType="textPassword"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/etemail"
+            android:layout_alignStart="@+id/etemail"
+            android:textColorHint="@color/fondo"
+            android:drawableLeft="@drawable/ic_contrasena"
+            android:textColor="@color/fondo"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:backgroundTint="@color/azulfondo" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ingresar"
             android:id="@+id/btlogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="login"
-            android:layout_above="@+id/registrar"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¿No tienes cuenta?"
-            android:id="@+id/registrar"
-            android:onClick="registrar"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="61dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nota_wifi"
-            android:id="@+id/textView15"
-            android:textAlignment="center"
-            android:textSize="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
+            android:text="Entrar"
+            android:singleLine="false"
+            android:background="@color/botones"
+            android:textColor="#ffffffff"
+            android:layout_below="@+id/etpass"
+            android:layout_marginTop="10dp"
+            android:layout_alignRight="@+id/etpass"
+            android:layout_alignEnd="@+id/etpass"
+            android:layout_alignLeft="@+id/etpass"
+            android:layout_alignStart="@+id/etpass" />
+    </LinearLayout>
 
 </RelativeLayout>

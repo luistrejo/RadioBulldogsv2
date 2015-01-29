@@ -65,6 +65,7 @@ public class Registro extends ActionBarActivity {
         contrasena = (EditText) findViewById(R.id.etcontraseña);
         especialidad = (Spinner) findViewById(R.id.spinEspecialidad);
         insertar = (Button) findViewById(R.id.btregistrar);
+        Button cancelar = (Button) findViewById(R.id.cancelar);
         //Registro button action
         insertar.setOnClickListener(new View.OnClickListener() {
 
@@ -92,6 +93,14 @@ public class Registro extends ActionBarActivity {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
                 this, R.array.especialidades, android.R.layout.simple_spinner_item);
         sp.setAdapter(adapter);
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(Registro.this, Login.class);
+                startActivity(login);
+            }
+        });
     }
 
 
@@ -192,7 +201,7 @@ public class Registro extends ActionBarActivity {
         JSONArray jdata = post.getserverdata(postparameters2send, URL_connect);
 
       		/*como estamos trabajando de manera local el ida y vuelta sera casi inmediato
-      		 * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
+               * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
       		 * observar el progressdialog
       		 * la podemos eliminar si queremos
       		 */

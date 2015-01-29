@@ -56,6 +56,7 @@ public class Servicio extends Service {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
+            Log.d(TAG, "Fuera de servicio");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,18 +124,21 @@ public class Servicio extends Service {
             imgcaratula = null;
             Radio caratula = new Radio();
 
-            imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 125, 125, false);
 
             //Cuando la imagen es null crash (arreglar)
             ///
             //
-            if (imgcaratula != null) {
+            if (caratula.caratulaimg != null) {
+                imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 125, 125, false);
                 builder.setLargeIcon(imgcaratula);
+                builder.setContentText(idnoti);
+                mNotificationManager.notify(notifyID, builder.build());
             } else {
                 builder.setLargeIcon(null);
+                builder.setContentText(idnoti);
+                mNotificationManager.notify(notifyID, builder.build());
             }
-            builder.setContentText(idnoti);
-            mNotificationManager.notify(notifyID, builder.build());
+
         }
 
     }
