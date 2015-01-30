@@ -11,13 +11,14 @@
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#9933cc"
+        android:divider="@color/botones"
         android:headerDividersEnabled="false"
         android:layout_span="12"
         android:stackFromBottom="true"
         android:dividerHeight="1dp"
         android:layout_above="@+id/imbEnviar"
-        android:layout_below="@+id/tool_bar" />
+        android:layout_below="@+id/tool_bar"
+        android:background="@color/azulfondo" />
 
     <ImageButton
         android:id="@+id/imbEnviar"
@@ -54,7 +55,7 @@
         android:id="@+id/mensajeconexion"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 
 </RelativeLayout>

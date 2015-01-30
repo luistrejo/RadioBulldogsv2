@@ -51,8 +51,8 @@ public class Chat extends Fragment {
     private ProgressDialog pDialog;
 
     // Declaramos variables para listview
-    JSONObject jsonobject, jsonobject2;
-    JSONArray jsonarray, jsonarray2;
+    JSONObject jsonobject;
+    JSONArray jsonarray;
     ListView listview;
     ListViewAdapter adapter;
     ProgressDialog mProgressDialog;
@@ -64,9 +64,9 @@ public class Chat extends Fragment {
     String TAG = "Chat";
     ArrayList<HashMap<String, String>> valor, valornuevo;
     HashMap<String, String> map;
-    int valornuevoo, valorr, array;
-    boolean eva;
+    int longitudguardada;
     TextView error;
+    Boolean cambio, errorb;
 
 
     @Override
@@ -83,7 +83,6 @@ public class Chat extends Fragment {
         mensaje = (EditText) rootView.findViewById(R.id.etMensaje);
         enviar = (ImageButton) rootView.findViewById(R.id.imbEnviar);
         error = (TextView) rootView.findViewById(R.id.mensajeconexion);
-        error.setVisibility(View.INVISIBLE);
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,62 +215,50 @@ public class Chat extends Fragment {
     private class DownloadJSON extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Create a progressdialog
-            //mProgressDialog = new ProgressDialog(TopRatedFragment.this.getActivity());
-            // Set progressdialog message
-            // mProgressDialog.setMessage("Cargando comentarios...");
-            //mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
-            //mProgressDialog.show();
-        }
-
-        @Override
         protected Void doInBackground(Void... params) {
-            // Create an array
-
-
-            // Retrieve JSON Objects from the given URL address
-
+            cambio = false;
+            errorb = false;
+            // Locate the array name in JSON
+            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
             try {
-                // Locate the array name in JSON
-                jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
                 jsonarray = jsonobject.getJSONArray("comentarios");
-                if (jsonarray.length() == valornuevoo) {
-                    Log.d(TAG, "Igual");
-                    eva = false;
-                } else {
-
-                    array = jsonarray.length();
+            } catch (NullPointerException e) {
+                Log.d(TAG, "Fuera de linea");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (jsonarray != null) {
+                if (jsonarray.length() != longitudguardada) {
+                    Log.d(TAG, "Diferente chat");
+                    cambio = true;
+                    longitudguardada = jsonarray.length();
                     arraylist = new ArrayList<HashMap<String, String>>();
                     valor = new ArrayList<HashMap<String, String>>();
                     valornuevo = new ArrayList<HashMap<String, String>>();
 
                     for (int i = 0; i < jsonarray.length(); i++) {
+                        try {
 
-                        map = new HashMap<String, String>();
-                        jsonobject = jsonarray.getJSONObject(i);
-                        // Retrive JSON Objects
-                        map.put("usuario", jsonobject.getString("usuario"));
-                        map.put("comentario", jsonobject.getString("comentario"));
-                        map.put("fecha", jsonobject.getString("fecha"));
-                        // Set the JSON Objects into the array
-                        valornuevo.add(map);
-                        valornuevoo = valornuevo.size();
-                        arraylist.add(map);
+                            map = new HashMap<String, String>();
+                            jsonobject = jsonarray.getJSONObject(i);
+                            // Retrive JSON Objects
+                            map.put("usuario", jsonobject.getString("usuario"));
+                            map.put("comentario", jsonobject.getString("comentario"));
+                            map.put("fecha", jsonobject.getString("fecha"));
+                            // Set the JSON Objects into the array
+                            arraylist.add(map);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
-                    Log.d(TAG, "Nuevo");
-                    eva = true;
+                } else {
+                    Log.d(TAG, "Mismo chat");
                 }
-            } catch (NullPointerException e) {
-                Log.d(TAG, "Sin conexion");
-            } catch (JSONException e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
+            } else {
+                Log.d(TAG, "Json array null");
+                errorb = true;
             }
-
 
             return null;
         }
@@ -279,8 +266,7 @@ public class Chat extends Fragment {
         @Override
         protected void onPostExecute(Void args) {
 
-
-            if (eva = true) {
+            if (cambio == true) {
                 try {
                     listview = (ListView) getActivity().findViewById(R.id.listview);
                     // Pass the results into ListViewAdapter.java
@@ -293,10 +279,18 @@ public class Chat extends Fragment {
             } else {
             }
 
-
+            if (errorb == true) {
+                error.setVisibility(View.VISIBLE);
+            } else {
+                error.setVisibility(View.GONE);
+            }
         }
+
+
     }
 
-
 }
+
+
+
 
