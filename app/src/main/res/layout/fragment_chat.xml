@@ -37,7 +37,6 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_background_normal"
         android:inputType="textCapSentences"
-        android:hint="Dinos tu comentario :)"
         android:textColor="#ff915bff"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/imbEnviar"

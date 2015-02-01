@@ -3,10 +3,11 @@ package luistrejo.com.materialdesign;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,11 +18,15 @@ import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -44,7 +49,7 @@ public class Radio extends Fragment implements View.OnClickListener {
     private static final String TAG = "Radio";
     private SeekBar volumeSeekbar = null;
     private AudioManager audioManager = null;
-    Button buttonStart, buttonStop;
+    ImageButton buttonStart;
     public String url = "http://192.168.0.109/RadioB/pag.php";
     private static final String TAG_USER = "streams";
     private static final String TAG_ID = "songtitle";
@@ -61,28 +66,39 @@ public class Radio extends Fragment implements View.OnClickListener {
     BitmapDrawable fondofinal;
     JSONObject json;
     JSONObject c;
+    public static boolean corriendo;
+    SharedPreferences playstop;
+    SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = container.getContext();
         rootView = inflater.inflate(R.layout.fragment_radio, container, false);
-        initControls();
-        volumeSeekbar = (SeekBar) rootView.findViewById(R.id.seekBar1);
-        audioManager = (AudioManager) this.getActivity().getSystemService(Context.AUDIO_SERVICE);
-        buttonStart = (Button) rootView.findViewById(R.id.startPlaying);
-        buttonStop = (Button) rootView.findViewById(R.id.buttonStopPlay);
+        buttonStart = (ImageButton) rootView.findViewById(R.id.startPlaying);
         buttonStart.setOnClickListener(this);
-        buttonStop.setOnClickListener(this);
         caratula = (ImageView) rootView.findViewById(R.id.caratula);
         uid = (TextView) rootView.findViewById(R.id.titulocancion);
         name1 = (TextView) rootView.findViewById(R.id.nextcancion);
-
-
+        uid.setSelected(true);
+        name1.setSelected(true);
+        playstop = getActivity().getSharedPreferences("playstop", Context.MODE_PRIVATE);
+        editor = playstop.edit();
+        Boolean presionado = playstop.getBoolean("play", false);
+        if (presionado == true) {
+            Log.d(TAG, "Presionado");
+            Drawable play1 = getResources().getDrawable(R.drawable.ic_play);
+            buttonStart.setImageDrawable(play1);
+        } else {
+            Log.d(TAG, "No presionado");
+            Drawable stop = getResources().getDrawable(R.drawable.ic_stop);
+            buttonStart.setImageDrawable(stop);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             new informacioncanciones().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
             new informacioncanciones().execute();
         }
+
 
         new Thread(new Runnable() {
             @Override
@@ -111,6 +127,7 @@ public class Radio extends Fragment implements View.OnClickListener {
             }
         }).start();
 
+
         return rootView;
     }
 
@@ -119,48 +136,26 @@ public class Radio extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startPlaying:
-                Log.d(TAG, "onClick: Starting service");
-                getActivity().startService(new Intent(getActivity(), Servicio.class));
+
+
+                if (corriendo == true) {
+                    Log.d(TAG, "onClick: Deteniendo servicio");
+                    getActivity().stopService(new Intent(getActivity(), Servicio.class));
+                    Drawable play = getResources().getDrawable(R.drawable.ic_play);
+                    buttonStart.setImageDrawable(play);
+                    editor.putBoolean("play", true);
+                    editor.commit();
+                } else {
+                    Log.d(TAG, "onClick: Starting service");
+                    getActivity().startService(new Intent(getActivity(), Servicio.class));
+                    Drawable stop = getResources().getDrawable(R.drawable.ic_stop);
+                    buttonStart.setImageDrawable(stop);
+                    editor.putBoolean("play", false);
+                    editor.commit();
+                }
                 break;
-            case R.id.buttonStopPlay:
-                Log.d(TAG, "onClick: Deteniendo servicio");
-                getActivity().stopService(new Intent(getActivity(), Servicio.class));
-                break;
-        }
-        if (v == buttonStart) {
-            buttonStop.setEnabled(true);
-            buttonStart.setEnabled(false);
-        } else if (v == buttonStop) {
-            buttonStop.setEnabled(false);
-            buttonStart.setEnabled(true);
         }
 
-
-    }
-
-    // control de volumen con el seckbar
-    private void initControls() {
-        try {
-            volumeSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
-            volumeSeekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
-            volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onStopTrackingTouch(SeekBar arg0) {
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar arg0) {
-                }
-
-                @Override
-                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-                            progress, 0);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public class informacioncanciones extends AsyncTask<String, String, JSONObject> {
@@ -186,7 +181,7 @@ public class Radio extends Fragment implements View.OnClickListener {
                 name = c.getString(TAG_NAME);
                 Servicio cancion = new Servicio();
                 cancion.idnoti = id;
-
+                buttonStart.setEnabled(true);
                 if (name == null) {
                     name = "No disponible";
                 }
@@ -194,6 +189,7 @@ public class Radio extends Fragment implements View.OnClickListener {
                 Log.d(TAG, "Fuerda de linea");
                 id = "Fuera de linea";
                 name = "Fuera de linea";
+                buttonStart.setEnabled(false);
             } catch (JSONException e) {
                 name = "No disponible";
                 Log.d(TAG, "No disponible");
@@ -245,7 +241,7 @@ public class Radio extends Fragment implements View.OnClickListener {
             }
 
             final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 10;
+            options.inSampleSize = 8;
             try {
                 InputStream in = new java.net.URL(urlcaratula).openStream();
                 fondo = BitmapFactory.decodeStream(in, null, options);
@@ -261,8 +257,13 @@ public class Radio extends Fragment implements View.OnClickListener {
             super.onPostExecute(aVoid);
 
             if (fondo == null) {
-                caratula.setImageResource(R.drawable.bull);
-                rootView.setBackgroundColor(getResources().getColor(R.color.ColorPrimaryDark));
+                caratula.setImageResource(R.drawable.ic_logo);
+                try {
+                    rootView.setBackgroundColor(getResources().getColor(R.color.azulfondo));
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "Not atachet to activity");
+                }
                 Log.d(TAG, "Sin caratula y fondo que mostrar");
             } else {
                 caratula.setImageBitmap(caratulaimg);
@@ -275,7 +276,7 @@ public class Radio extends Fragment implements View.OnClickListener {
                             .create(rs, Element.U8_4(rs));
                     Allocation tmpIn = Allocation.createFromBitmap(rs, fondo);
                     Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
-                    theIntrinsic.setRadius(20);
+                    theIntrinsic.setRadius(17);
                     theIntrinsic.setInput(tmpIn);
                     theIntrinsic.forEach(tmpOut);
                     tmpOut.copyTo(outputBitmap);

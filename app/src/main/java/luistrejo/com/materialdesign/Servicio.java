@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 public class Servicio extends Service {
     private static final String TAG = "Servicio";
-    MediaPlayer player;
+    public static MediaPlayer player;
     public static String idnoti = "", idnotiguardado = "";
     Handler mHandler = new Handler();
     NotificationManager mNotificationManager;
@@ -36,15 +36,38 @@ public class Servicio extends Service {
     public static Bitmap imgcaratula;
     int notifyID = 1;
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    private void cambio() {
+        if (idnoti.equals(idnotiguardado) == false) {
+            idnotiguardado = idnoti;
+            imgcaratula = null;
+            Radio caratula = new Radio();
+
+
+            //Cuando la imagen es null crash (arreglar)
+            ///
+            //
+            if (caratula.caratulaimg != null) {
+                imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 125, 125, false);
+                builder.setLargeIcon(imgcaratula);
+                builder.setContentText(idnoti);
+                mNotificationManager.notify(notifyID, builder.build());
+            } else {
+                builder.setLargeIcon(null);
+                builder.setContentText(idnoti);
+                mNotificationManager.notify(notifyID, builder.build());
+            }
+
+        }
+
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void onCreate() {
-
+        Toast.makeText(this, "Servicio creado",
+                Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Servicio creado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onCreate");
         player = new MediaPlayer();
@@ -83,18 +106,15 @@ public class Servicio extends Service {
                 }
             }
         }).start();
-
-
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public int onStartCommand(Intent intent, int flags, int startid) {
+    public int onStartCommand(Intent intenc, int flags, int idArranque) {
 
         Toast.makeText(this, "Servicio Iniciado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onStart");
         player.start();
-
+        Radio.corriendo = true;
         Intent intent1 = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
 
@@ -115,32 +135,6 @@ public class Servicio extends Service {
 
         return START_NOT_STICKY;
 
-
-    }
-
-    private void cambio() {
-        if (idnoti.equals(idnotiguardado) == false) {
-            idnotiguardado = idnoti;
-            imgcaratula = null;
-            Radio caratula = new Radio();
-
-
-            //Cuando la imagen es null crash (arreglar)
-            ///
-            //
-            if (caratula.caratulaimg != null) {
-                imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 125, 125, false);
-                builder.setLargeIcon(imgcaratula);
-                builder.setContentText(idnoti);
-                mNotificationManager.notify(notifyID, builder.build());
-            } else {
-                builder.setLargeIcon(null);
-                builder.setContentText(idnoti);
-                mNotificationManager.notify(notifyID, builder.build());
-            }
-
-        }
-
     }
 
     @Override
@@ -148,7 +142,12 @@ public class Servicio extends Service {
         Toast.makeText(this, "Servicio detenido", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
         player.stop();
+        Radio.corriendo = false;
         stopForeground(true);
     }
 
+    @Override
+    public IBinder onBind(Intent intencion) {
+        return null;
+    }
 }

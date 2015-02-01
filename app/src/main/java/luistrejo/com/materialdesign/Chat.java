@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,7 +69,6 @@ public class Chat extends Fragment {
     TextView error;
     Boolean cambio, errorb;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -83,6 +83,7 @@ public class Chat extends Fragment {
         mensaje = (EditText) rootView.findViewById(R.id.etMensaje);
         enviar = (ImageButton) rootView.findViewById(R.id.imbEnviar);
         error = (TextView) rootView.findViewById(R.id.mensajeconexion);
+
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +215,7 @@ public class Chat extends Fragment {
     // Clase que carga el listview con los datos del servidor
     private class DownloadJSON extends AsyncTask<Void, Void, Void> {
 
+
         @Override
         protected Void doInBackground(Void... params) {
             cambio = false;
@@ -265,6 +267,7 @@ public class Chat extends Fragment {
 
         @Override
         protected void onPostExecute(Void args) {
+
 
             if (cambio == true) {
                 try {
