@@ -6,36 +6,53 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="bulldogs.luistrejo.com.radiobulldogs.Sugerencias">
+    tools:context="bulldogs.luistrejo.com.radiobulldogs.Sugerencias"
+    android:background="@color/azulfondo">
 
-    <TextView android:text="Como parte del proceso de aprendizaje nos apoyarias enormemente si nos compartieras amablemente tu opinion sobre el servicio en general, la radio, la musica, la web asi como de esta app, igualmente recibimos cualquier otra sugerencia o comentario que nos ayude a mejorar aun mas." android:layout_width="wrap_content"
+    <TextView
+        android:text="Como parte del proceso de aprendizaje nos apoyarias enormemente si nos compartieras amablemente tu opinion sobre el servicio en general, la radio, la musica, la web asi como de esta app, igualmente recibimos cualquier otra sugerencia o comentario que nos ayude a mejorar aun mas."
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/textView14" />
+        android:layout_marginTop="156dp"
+        android:textColor="@color/blancofondo" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView14"
-        android:layout_marginTop="39dp"
+        android:id="@+id/etsugerencia"
         android:background="@android:drawable/editbox_background_normal"
+        android:height="100dp"
+        android:layout_below="@+id/textView14"
+        android:layout_marginTop="35dp"
+        android:layout_alignRight="@+id/textView14"
+        android:layout_alignEnd="@+id/textView14"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:height="100dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enviar"
-        android:id="@+id/button"
-        android:layout_below="@+id/editText"
+        android:text="Enviar sugerencia"
+        android:id="@+id/enviarsugerencia"
+        android:background="@color/botones"
+        android:textColor="@color/blancofondo"
+        android:layout_below="@+id/etsugerencia"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginTop="32dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:layout_marginTop="65dp"
+        android:src="@drawable/ic_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

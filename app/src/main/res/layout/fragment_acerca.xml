@@ -7,6 +7,7 @@
     tools:context="bulldogs.luistrejo.com.radiobulldogs.Acerca"
     >
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,15 +17,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Carolina Ochoa Garcia"
         android:id="@+id/textView9"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/textView8"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/Carolina"
+        android:layout_alignLeft="@+id/textView10"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,9 +35,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Maria Idaly Mendoza Arzola"
         android:id="@+id/textView10"
-        android:layout_below="@+id/textView9"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp" />
+        android:layout_alignBottom="@+id/Idaly"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,9 +46,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Daniel Hamlet Minjares Beltran"
         android:id="@+id/textView11"
-        android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp" />
+        android:layout_above="@+id/Daniel"
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,10 +57,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Daniel Rafael Hernandez Piñon"
         android:id="@+id/textView12"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/textView11"
-        android:layout_alignLeft="@+id/textView11"
-        android:layout_alignStart="@+id/textView11" />
+        android:layout_marginBottom="25dp"
+        android:layout_alignBottom="@+id/Daniel"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,9 +68,77 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Luis Alberto Trejo Miranda"
         android:id="@+id/textView13"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/textView12"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/Luis"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Raul Alberto Toledo Piñon"
+        android:id="@+id/textView20"
+        android:layout_marginBottom="25dp"
+        android:layout_alignBottom="@+id/Raul"
+        android:layout_alignLeft="@+id/textView13"
+        android:layout_alignStart="@+id/textView13" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_luis"
+        android:id="@+id/Luis"
+        android:layout_below="@+id/Daniel"
+        android:layout_marginTop="10dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_daniel"
+        android:id="@+id/Daniel"
+        android:layout_below="@+id/Hamlet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_carolina"
+        android:id="@+id/Carolina"
+        android:layout_marginTop="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_idaly"
+        android:id="@+id/Idaly"
+        android:layout_below="@+id/Carolina"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_hamlet"
+        android:id="@+id/Hamlet"
+        android:layout_below="@+id/Idaly"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_logo"
+        android:id="@+id/Raul"
+        android:layout_below="@+id/Luis"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
 
 </RelativeLayout>

@@ -38,12 +38,8 @@ import luistrejo.com.materialdesign.Loginaux.Httppostaux;
 
 public class Registro extends ActionBarActivity {
     String TAG = "Registro";
-    private EditText nombre;
-    private EditText paterno;
-    private EditText materno;
-    private EditText usuario;
-    private EditText contrasena;
-    private Spinner especialidad;
+    private EditText nombre, paterno, materno, usuario, contrasena;
+    private Spinner especialidad, gradogrupo;
     private Button insertar;
     Httppostaux post;
     String URL_connect = "http://192.168.0.109/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
@@ -64,6 +60,7 @@ public class Registro extends ActionBarActivity {
         usuario = (EditText) findViewById(R.id.etusuario);
         contrasena = (EditText) findViewById(R.id.etcontraseña);
         especialidad = (Spinner) findViewById(R.id.spinEspecialidad);
+        gradogrupo = (Spinner) findViewById(R.id.spinGradodrupo);
         insertar = (Button) findViewById(R.id.btregistrar);
         Button cancelar = (Button) findViewById(R.id.cancelar);
         //Registro button action
@@ -76,9 +73,7 @@ public class Registro extends ActionBarActivity {
                         !paterno.getText().toString().trim().equalsIgnoreCase("") ||
                         !materno.getText().toString().trim().equalsIgnoreCase("") ||
                         !usuario.getText().toString().trim().equalsIgnoreCase("") ||
-                        !contrasena.getText().toString().trim().equalsIgnoreCase("") ||
-                        !especialidad.getSelectedItem().toString().trim().equalsIgnoreCase(""))
-
+                        !contrasena.getText().toString().trim().equalsIgnoreCase(""))
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
                     new asynclogin().execute(usuario1);
                 else {
@@ -93,6 +88,11 @@ public class Registro extends ActionBarActivity {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(
                 this, R.array.especialidades, android.R.layout.simple_spinner_item);
         sp.setAdapter(adapter);
+
+        Spinner sp2 = (Spinner) findViewById(R.id.spinGradodrupo);
+        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(
+                this, R.array.gradogrupo, android.R.layout.simple_spinner_item);
+        sp2.setAdapter(adapter2);
 
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,12 +128,13 @@ public class Registro extends ActionBarActivity {
         httpclient = new DefaultHttpClient();
         httppost = new HttpPost("http://192.168.0.109/RadioB/nuevousuario.php");
         //Añadimos los datos
-        nameValuePairs = new ArrayList<NameValuePair>(6);
+        nameValuePairs = new ArrayList<NameValuePair>(7);
         nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("paterno", paterno.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("materno", materno.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("usuario", usuario.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("contrasena", contrasena.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("gradogrupo", gradogrupo.getSelectedItem().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("especialidad", especialidad.getSelectedItem().toString().trim()));
 
         try {

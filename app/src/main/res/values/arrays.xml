@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="especialidades">
-        <item></item>
+        <item>Especialidad</item>
         <item>Programacion</item>
         <item>Mecatronica</item>
         <item>Electromecanica</item>
         <item>Electronica</item>
         <item>Soporte y Mantenimiento</item>
         <item>Plasticos</item>
+    </string-array>
+
+    <string-array name="gradogrupo">
+        <item>Grado</item>
+        <item>2A</item>
+        <item>2B</item>
+        <item>2C</item>
+        <item>2D</item>
+        <item>2E</item>
+        <item>2F</item>
+        <item>2G</item>
+        <item>2H</item>
+        <item>2I</item>
+        <item>2J</item>
+        <item>2K</item>
+        <item>2L</item>
+        <item>2M</item>
+        <item>2N</item>
+        <item>2O</item>
+        <item>2P</item>
+        <item>2Q</item>
+        <item>2R</item>
+        <item>4A</item>
+        <item>4B</item>
+        <item>4C</item>
+        <item>4D</item>
+        <item>4E</item>
+        <item>4F</item>
+        <item>4G</item>
+        <item>4H</item>
+        <item>4I</item>
+        <item>4J</item>
+        <item>4K</item>
+        <item>4L</item>
+        <item>4M</item>
+        <item>4N</item>
+        <item>4O</item>
+        <item>4P</item>
+        <item>4Q</item>
+        <item>4R</item>
+        <item>6A</item>
+        <item>6B</item>
+        <item>6C</item>
+        <item>6D</item>
+        <item>6E</item>
+        <item>6F</item>
+        <item>6G</item>
+        <item>6H</item>
+        <item>6I</item>
+        <item>6J</item>
+        <item>6K</item>
+        <item>6L</item>
+        <item>6M</item>
+        <item>6N</item>
+        <item>6O</item>
+        <item>6P</item>
+        <item>6Q</item>
+        <item>6R</item>
+        <item>6S</item>
+
     </string-array>
 </resources>

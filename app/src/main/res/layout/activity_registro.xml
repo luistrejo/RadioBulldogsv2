@@ -103,19 +103,42 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/fondo" />
 
-        <Spinner
-            android:id="@+id/spinEspecialidad"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/etcontraseña"
-            android:layout_alignLeft="@+id/etcontraseña"
-            android:layout_alignRight="@+id/etcontraseña"
-            android:layout_alignStart="@+id/etcontraseña"
-            android:layout_below="@+id/etcontraseña"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/spinGradodrupo"
+                android:layout_width="141dp"
+                android:layout_height="match_parent"
+                android:layout_alignEnd="@+id/etcontraseña"
+                android:layout_alignLeft="@+id/etcontraseña"
+                android:layout_alignRight="@+id/etcontraseña"
+                android:layout_alignStart="@+id/etcontraseña"
+                android:layout_below="@+id/etcontraseña"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_horizontal"
+                android:spinnerMode="dropdown" />
+
+            <Spinner
+                android:id="@+id/spinEspecialidad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignEnd="@+id/etcontraseña"
+                android:layout_alignLeft="@+id/etcontraseña"
+                android:layout_alignRight="@+id/etcontraseña"
+                android:layout_alignStart="@+id/etcontraseña"
+                android:layout_below="@+id/etcontraseña"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"

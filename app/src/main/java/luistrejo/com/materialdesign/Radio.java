@@ -257,7 +257,7 @@ public class Radio extends Fragment implements View.OnClickListener {
             super.onPostExecute(aVoid);
 
             if (fondo == null) {
-                caratula.setImageResource(R.drawable.ic_logo);
+                caratula.setImageResource(R.drawable.sincaratula);
                 try {
                     rootView.setBackgroundColor(getResources().getColor(R.color.azulfondo));
                 } catch (IllegalStateException e) {

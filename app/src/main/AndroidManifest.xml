@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="luistrejo.com.materialdesign" >
+    package="luistrejo.com.materialdesign">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -14,11 +14,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Radio Bulldogs" >
-        </activity>
+            android:label="Radio Bulldogs"></activity>
         <activity
             android:name=".Login"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +27,7 @@
         <activity
             android:name=".Registro"
             android:label="@string/title_activity_registro"
-            android:parentActivityName=".Login" >
+            android:parentActivityName=".Login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="luistrejo.com.materialdesign.Login" />
@@ -39,12 +38,12 @@
             android:enabled="true" />
 
         <activity
-            android:name=".Cambiapass"
-            android:label="@string/title_activity_cambiapass"
-            android:parentActivityName=".Login" >
+            android:name=".Cbtis"
+            android:label="@string/title_activity_cbtis"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="luistrejo.com.materialdesign.Login" />
+                android:value="luistrejo.com.materialdesign.MainActivity" />
         </activity>
     </application>
 

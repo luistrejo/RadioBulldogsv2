@@ -239,7 +239,10 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.Cbtis) {
+            Intent cbtis = new Intent(MainActivity.this, Cbtis.class);
+            cbtis.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(cbtis);
             return true;
 
         }
