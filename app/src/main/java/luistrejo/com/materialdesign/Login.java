@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -18,16 +17,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import luistrejo.com.materialdesign.Loginaux.Httppostaux;
-import luistrejo.com.materialdesign.MainActivity;
 
 
 public class Login extends Activity {
@@ -98,6 +101,8 @@ public class Login extends Activity {
                 startActivity(i);
             }
         });
+
+
     }
 
     //evaluamos el estatus del login

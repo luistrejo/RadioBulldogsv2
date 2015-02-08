@@ -1,9 +1,10 @@
 package luistrejo.com.materialdesign;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -23,13 +24,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.gc.materialdesign.widgets.Dialog;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -142,20 +143,35 @@ public class MainActivity extends ActionBarActivity {
                             break;
                         }
                         case 7: {
-                            Intent logout = new Intent(MainActivity.this, Login.class);
-                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(logout);
 
-                            // guardar true para login para no mostrar esta activity de nuevo
-                            editor2.putString("login", "false");
-                            editor2.commit();
+                            final Dialog dialog = new Dialog(MainActivity.this, "Salir", "Estas a punto de salir.");
+                            dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
 
-                            //si esta activo el servicio de musica lo cerramos
-                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                @Override
+                                public void onClick(View v) {
+                                    Intent logout = new Intent(MainActivity.this, Login.class);
+                                    logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(logout);
+                                    // guardar true para login para no mostrar esta activity de nuevo
+                                    editor2.putString("login", "false");
+                                    editor2.commit();
+
+                                    //si esta activo el servicio de musica lo cerramos
+                                    MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                }
+                            });
+                            dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
+
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+
 
                             break;
                         }
-
 
                         default:
                             break;

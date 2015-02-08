@@ -14,5 +14,26 @@
     <string name="nota_wifi">Nota: Recuerda estar conectado a la red Wi-fi "Radio Bulldogs".</string>
     <string name="title_activity_cambiapass">Cambiapass</string>
     <string name="title_activity_cbtis">Cbtis 122</string>
+    <string name="Calle">Calle 20 (Salvador Almanza Bustillos) # 9008</string>
+    <string name="Colonia">Col. División del Norte</string>
+    <string name="Ciudad">Chihuahua, Chih.</string>
+    <string name="CodigoPostal">C.P.: 31064</string>
+    <string name="Telefono1">(614) 420-1064</string>
+    <string name="Telefono2">(614) 420-0570</string>
+    <string name="Telefono3">(614) 420-0137</string>
+    <string name="WebCbtis">cbtis122.edu.mx</string>
+    <string name="WebPlataforma">plataforma.cbtis122.net</string>
+    <string name="WebHorarios">horarios.cbtis122.net</string>
+    <string name="FacebookCbtis">facebook.com/cbtis122</string>
+    <string name="WebAlumnos">alumnos.cbtis122.info</string>
+    <string name="TwitterCbtis">twitter.com/cbtis122</string>
+    <string name="URLCbtis">http://cbtis122.edu.mx</string>
+    <string name="URLPlataforma">http://plataforma.cbtis122.net</string>
+    <string name="URLHorarios">http://horarios.cbtis122.net</string>
+    <string name="URLAlumnos">http://alumnos.cbtis122.info</string>
+    <string name="URLFacebookAPP">fb://page/364669097632</string>
+    <string name="URLFacebook">http://www.facebook.com/cbtis122</string>
+    <string name="URLTwitterAPP">twitter://user?screen_name=cbtis122</string>
+    <string name="URLTwitter">https://twitter.com/#!/cbtis122</string>
 
 </resources>

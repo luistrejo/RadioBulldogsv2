@@ -121,7 +121,7 @@ public class Servicio extends Service {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setTicker("Radio Bulldogs: La estacion de radio mas perra!")
                 .setContentTitle("Radio Bulldogs")
                 .setContentText(idnoti)

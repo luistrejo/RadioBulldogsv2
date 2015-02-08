@@ -26,4 +26,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'de.hdodenhof:circleimageview:1.2.1'
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.nineoldandroids:library:2.4.+'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile fileTree(dir: 'libs', include: 'bolts-android-*.jar')
+
 }

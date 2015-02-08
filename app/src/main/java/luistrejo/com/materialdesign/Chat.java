@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.CustomView;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -48,7 +50,7 @@ import luistrejo.com.materialdesign.Chatlist.ListViewAdapter;
 public class Chat extends Fragment {
 
     private EditText mensaje;
-    private ImageButton enviar;
+    private CustomView enviar;
     private ProgressDialog pDialog;
 
     // Declaramos variables para listview
@@ -81,7 +83,7 @@ public class Chat extends Fragment {
             new DownloadJSON().execute();
         }
         mensaje = (EditText) rootView.findViewById(R.id.etMensaje);
-        enviar = (ImageButton) rootView.findViewById(R.id.imbEnviar);
+        enviar = (CustomView) rootView.findViewById(R.id.Enviar);
         error = (TextView) rootView.findViewById(R.id.mensajeconexion);
 
 

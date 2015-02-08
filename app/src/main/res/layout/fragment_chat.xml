@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
@@ -16,35 +17,9 @@
         android:layout_span="12"
         android:stackFromBottom="true"
         android:dividerHeight="1dp"
-        android:layout_above="@+id/imbEnviar"
         android:layout_below="@+id/tool_bar"
-        android:background="@color/azulfondo" />
-
-    <ImageButton
-        android:id="@+id/imbEnviar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_send"
-        android:onClick="enviar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:baselineAlignBottom="false" />
-
-    <EditText
-        android:id="@+id/etMensaje"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_background_normal"
-        android:inputType="textCapSentences"
-        android:textColor="#ff915bff"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/imbEnviar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/imbEnviar">
-
-    </EditText>
+        android:background="@color/azulfondo"
+        android:layout_above="@+id/linearLayout3" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,5 +31,47 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:weightSum="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <EditText
+            android:id="@+id/etMensaje"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine|textCapSentences"
+            android:textColor="@color/azulfondo"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/imbEnviar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/imbEnviar"
+            android:layout_weight="1.03">
+
+        </EditText>
+
+        <com.gc.materialdesign.views.ButtonFloat
+            android:id="@+id/Enviar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:background="#1E88E5"
+            materialdesign:animate="false"
+            materialdesign:iconDrawable="@android:drawable/ic_menu_send"
+            android:onClick="enviar"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>
