@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.CustomView;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Sugerencias extends Fragment {
     EditText sugerencia;
-    Button enviar;
+    CustomView enviar;
 
     public Sugerencias() {
         // Required empty public constructor
@@ -49,7 +51,7 @@ public class Sugerencias extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_sugerencias, container, false);
 
         sugerencia = (EditText) rootView.findViewById(R.id.etsugerencia);
-        enviar = (Button) rootView.findViewById(R.id.enviarsugerencia);
+        enviar = (CustomView) rootView.findViewById(R.id.enviarsugerencia);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

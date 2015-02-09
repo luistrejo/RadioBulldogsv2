@@ -10,15 +10,14 @@
     android:background="@color/azulfondo">
 
     <TextView
-        android:text="Como parte del proceso de aprendizaje nos apoyarias enormemente si nos compartieras amablemente tu opinion sobre el servicio en general, la radio, la musica, la web asi como de esta app, igualmente recibimos cualquier otra sugerencia o comentario que nos ayude a mejorar aun mas."
+        android:text="@string/MensajeSugerencias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView14"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="156dp"
-        android:textColor="@color/blancofondo" />
+        android:layout_marginTop="39dp"
+        android:textColor="@color/blancofondo"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,22 +34,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/enviarsugerencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enviar sugerencia"
-        android:id="@+id/enviarsugerencia"
         android:background="@color/botones"
-        android:textColor="@color/blancofondo"
+        android:text="Enviar sugerencia"
         android:layout_below="@+id/etsugerencia"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="31dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logo"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="34dp"
         android:src="@drawable/ic_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

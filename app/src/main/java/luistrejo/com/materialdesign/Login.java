@@ -3,8 +3,10 @@ package luistrejo.com.materialdesign;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -17,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.gc.materialdesign.widgets.Dialog;
 import com.parse.Parse;
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
@@ -38,12 +42,11 @@ public class Login extends Activity {
     EditText pass;
     Button blogin;
     Httppostaux post;
-
+    com.gc.materialdesign.widgets.ProgressDialog dialog;
     // String URL_connect="http://www.scandroidtest.site90.com/acces.php";
     String URL_connect = "http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
 
     boolean result_back;
-    private ProgressDialog pDialog;
     SharedPreferences pref;
     SharedPreferences.Editor editor2;
 
@@ -206,12 +209,8 @@ public class Login extends Activity {
         String user, pass;
 
         protected void onPreExecute() {
-            //para el progress dialog
-            pDialog = new ProgressDialog(Login.this);
-            pDialog.setMessage("Autenticando....");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
+            dialog = new com.gc.materialdesign.widgets.ProgressDialog(Login.this, "Autentificando", R.color.azulfuerte);
+            dialog.show();
         }
 
         protected String doInBackground(String... params) {
@@ -233,7 +232,7 @@ public class Login extends Activity {
         o mostramos error*/
         protected void onPostExecute(String result) {
 
-            pDialog.dismiss();//ocultamos progess dialog.
+            dialog.dismiss();
             Log.e("onPostExecute=", "" + result);
 
             if (result.equals("ok")) {

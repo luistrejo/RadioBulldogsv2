@@ -2,118 +2,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
     android:background="@drawable/transparente"
-    >
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/transparente"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false">
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/transparente">
 
 
         <ImageView
+            android:id="@+id/caratula"
             android:layout_width="290dp"
             android:layout_height="290dp"
-        android:id="@+id/caratula"
-        android:scaleType="fitXY"
-        android:src="@drawable/bull"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true" />
+            android:scaleType="fitXY"
+            android:src="@drawable/bull" />
 
 
-        <LinearLayout
-            android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        <RelativeLayout
             android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="15dp">
+            android:layout_below="@+id/botones">
 
 
             <TextView
-                android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/titulocancion"
-            android:textStyle="italic"
-            android:gravity="center"
-            android:text="Cargando..."
-            android:textColor="#ffffffff"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_above="@+id/info"
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="A continuacion:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffffff" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="A continuacion:"
-            android:id="@+id/textView16"
-                android:textColor="#ffffffff"
-            android:layout_below="@+id/titulocancion"
-            android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
+                android:id="@+id/nextcancion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/nextcancion"
-                android:textStyle="italic"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:text="Cargando..."
-                android:textColor="#ffffffff"
+                android:layout_below="@+id/textView16"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:ellipsize="marquee"
+                android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:layout_below="@+id/textView16"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" />
+                android:text="Cargando..."
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ffffffff"
+                android:textStyle="italic" />
+        </RelativeLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
+            android:id="@+id/botones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/botones"
-            android:layout_above="@+id/info"
-            android:layout_below="@+id/caratula"
+            android:layout_alignEnd="@+id/caratula"
             android:layout_alignLeft="@+id/caratula"
-            android:layout_alignStart="@+id/caratula"
             android:layout_alignRight="@+id/caratula"
-            android:layout_alignEnd="@+id/caratula">
+            android:layout_alignStart="@+id/caratula"
+            android:layout_below="@+id/caratula"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulocancion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Cargando..."
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffffff"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/barra2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/startPlaying"
+                android:layout_centerHorizontal="true"
+                android:background="@color/fondo" />
 
             <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
                 android:id="@+id/startPlaying"
-                android:onClick="startPlaying"
-                android:background="#00ffffff"
-                android:layout_above="@+id/info"
-            android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/barra"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp" />
-        </LinearLayout>
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#00ffffff"
+                android:onClick="startPlaying"
+                android:src="@drawable/ic_play" />
 
+            <View
+                android:id="@+id/barra"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/titulocancion"
+                android:background="@color/fondo" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Bajar"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_bajavolumen"
+                android:background="#00ffffff"
+                android:layout_marginTop="20dp"
+                android:layout_alignTop="@+id/startPlaying"
+                android:layout_toLeftOf="@+id/startPlaying"
+                android:layout_toStartOf="@+id/startPlaying" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Subir"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_subevolumen"
+                android:background="#00ffffff"
+                android:layout_alignTop="@+id/Bajar"
+                android:layout_toRightOf="@+id/startPlaying"
+                android:layout_toEndOf="@+id/startPlaying" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

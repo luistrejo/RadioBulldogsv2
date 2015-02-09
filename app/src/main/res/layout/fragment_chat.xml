@@ -18,7 +18,7 @@
         android:stackFromBottom="true"
         android:dividerHeight="1dp"
         android:layout_below="@+id/tool_bar"
-        android:background="@color/azulfondo"
+        android:background="@color/blancofondo"
         android:layout_above="@+id/linearLayout3" />
 
     <TextView
@@ -73,5 +73,14 @@
             android:layout_marginBottom="5dp" />
 
     </LinearLayout>
+
+    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
+        android:id="@+id/cargandocomentarios"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="#1E88E5"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

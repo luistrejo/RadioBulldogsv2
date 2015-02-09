@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gc.materialdesign.widgets.Dialog;
 
@@ -105,91 +106,100 @@ public class MainActivity extends ActionBarActivity {
 
         mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+            public boolean onInterceptTouchEvent(final RecyclerView recyclerView, MotionEvent motionEvent) {
+                final View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
 
                 if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    Drawer.closeDrawers();
-                    Fragment fragment = null;
 
-                    switch (recyclerView.getChildPosition(child)) {
-                        case 1: {
-                            fragment = new Radio();
-                            title = "Radio Bulldogs";
-                            break;
-                        }
-                        case 2: {
-                            fragment = new Chat();
-                            title = "Chat";
-                            break;
-                        }
-                        case 3: {
-                            copyAssets();
-                            break;
-                        }
-                        case 4: {
-                            fragment = new Calendario();
-                            title = "Calendario de Actividades";
-                            break;
-                        }
-                        case 5: {
-                            fragment = new Sugerencias();
-                            title = "Sugerencias";
-                            break;
-                        }
-                        case 6: {
-                            fragment = new Acerca();
-                            title = "Acerca de";
-                            break;
-                        }
-                        case 7: {
 
-                            final Dialog dialog = new Dialog(MainActivity.this, "Salir", "Estas a punto de salir.");
-                            dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
-
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            runOnUiThread(new Runnable() {
                                 @Override
-                                public void onClick(View v) {
-                                    Intent logout = new Intent(MainActivity.this, Login.class);
-                                    logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(logout);
-                                    // guardar true para login para no mostrar esta activity de nuevo
-                                    editor2.putString("login", "false");
-                                    editor2.commit();
+                                public void run() {
+                                    Drawer.closeDrawers();
 
-                                    //si esta activo el servicio de musica lo cerramos
-                                    MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                    Fragment fragment = null;
+
+                                    switch (recyclerView.getChildPosition(child)) {
+                                        case 1: {
+                                            fragment = new Radio();
+                                            title = "Radio Bulldogs";
+                                            break;
+                                        }
+                                        case 2: {
+                                            fragment = new Chat();
+                                            title = "Chat";
+                                            break;
+                                        }
+                                        case 3: {
+                                            copyAssets();
+                                            break;
+                                        }
+                                        case 4: {
+                                            fragment = new Calendario();
+                                            title = "Calendario de Actividades";
+                                            break;
+                                        }
+                                        case 5: {
+                                            fragment = new Sugerencias();
+                                            title = "Sugerencias";
+                                            break;
+                                        }
+                                        case 6: {
+                                            fragment = new Acerca();
+                                            title = "Acerca de";
+                                            break;
+                                        }
+                                        case 7: {
+
+
+                                            Intent logout = new Intent(MainActivity.this, Login.class);
+                                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(logout);
+                                            // guardar true para login para no mostrar esta activity de nuevo
+                                            editor2.putString("login", "false");
+                                            editor2.commit();
+
+                                            //si esta activo el servicio de musica lo cerramos
+                                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+
+
+                                            break;
+                                        }
+
+                                        default:
+                                            break;
+                                    }
+                                    if (fragment != null) {
+                                        try {
+                                            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                                            setActionBarTitle(title);
+                                        } catch (IllegalStateException e) {
+                                            Log.d("Fragment manager", "IlegalStateException");
+                                        } catch (Exception e) {
+                                            Log.d("Fragment manager", "Error añadiendo fragment");
+
+                                        }
+                                    } else {
+
+                                        Log.d("Main Activity", "Error creando fragments");
+                                    }
                                 }
                             });
-                            dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            dialog.show();
-
-
-                            break;
                         }
+                    }).start();
 
-                        default:
-                            break;
-                    }
-                    if (fragment != null) {
-                        try {
-                            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-                            setActionBarTitle(title);
-                        } catch (IllegalStateException e) {
-                            Log.d("Fragment manager", "IlegalStateException");
-                        } catch (Exception e) {
-                            Log.d("Fragment manager", "Error añadiendo fragment");
 
-                        }
-                    } else {
 
-                        Log.d("Main Activity", "Error creando fragments");
-                    }
+
+
 
                 }
 

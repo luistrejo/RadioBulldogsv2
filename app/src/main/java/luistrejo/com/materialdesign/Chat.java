@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.CustomView;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -51,7 +52,7 @@ public class Chat extends Fragment {
 
     private EditText mensaje;
     private CustomView enviar;
-    private ProgressDialog pDialog;
+    private com.gc.materialdesign.widgets.ProgressDialog pDialog;
 
     // Declaramos variables para listview
     JSONObject jsonobject;
@@ -70,6 +71,7 @@ public class Chat extends Fragment {
     int longitudguardada;
     TextView error;
     Boolean cambio, errorb;
+    ProgressBarCircularIndeterminate circulo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ public class Chat extends Fragment {
         mensaje = (EditText) rootView.findViewById(R.id.etMensaje);
         enviar = (CustomView) rootView.findViewById(R.id.Enviar);
         error = (TextView) rootView.findViewById(R.id.mensajeconexion);
-
+        circulo = (ProgressBarCircularIndeterminate) rootView.findViewById(R.id.cargandocomentarios);
 
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,10 +173,7 @@ public class Chat extends Fragment {
 
         protected void onPreExecute() {
             //para el progress dialog
-            pDialog = new ProgressDialog(Chat.this.getActivity());
-            pDialog.setMessage("Enviando mensaje....");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
+            pDialog = new com.gc.materialdesign.widgets.ProgressDialog(Chat.this.getActivity(), "Enviando Comentario.", R.color.azulfuerte);
             pDialog.show();
         }
 
@@ -216,7 +215,6 @@ public class Chat extends Fragment {
 
     // Clase que carga el listview con los datos del servidor
     private class DownloadJSON extends AsyncTask<Void, Void, Void> {
-
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -270,7 +268,7 @@ public class Chat extends Fragment {
         @Override
         protected void onPostExecute(Void args) {
 
-
+            circulo.setVisibility(View.GONE);
             if (cambio == true) {
                 try {
                     listview = (ListView) getActivity().findViewById(R.id.listview);

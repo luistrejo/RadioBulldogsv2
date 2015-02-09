@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,8 +49,7 @@ public class Radio extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Radio";
     private SeekBar volumeSeekbar = null;
-    private AudioManager audioManager = null;
-    ImageButton buttonStart;
+    ImageButton buttonStart, subir, bajar;
     public String url = "http://192.168.0.109/RadioB/pag.php";
     private static final String TAG_USER = "streams";
     private static final String TAG_ID = "songtitle";
@@ -69,6 +69,7 @@ public class Radio extends Fragment implements View.OnClickListener {
     public static boolean corriendo;
     SharedPreferences playstop;
     SharedPreferences.Editor editor;
+    private AudioManager myAudioManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +77,23 @@ public class Radio extends Fragment implements View.OnClickListener {
         rootView = inflater.inflate(R.layout.fragment_radio, container, false);
         buttonStart = (ImageButton) rootView.findViewById(R.id.startPlaying);
         buttonStart.setOnClickListener(this);
+        subir = (ImageButton) rootView.findViewById(R.id.Subir);
+        subir.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                myAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+            }
+        });
+        bajar = (ImageButton) rootView.findViewById(R.id.Bajar);
+        bajar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                myAudioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
+            }
+        });
+        myAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         caratula = (ImageView) rootView.findViewById(R.id.caratula);
         uid = (TextView) rootView.findViewById(R.id.titulocancion);
         name1 = (TextView) rootView.findViewById(R.id.nextcancion);

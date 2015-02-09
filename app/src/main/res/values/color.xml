@@ -10,4 +10,6 @@
     <color name="botones">#ff19e9cc</color>
     <color name="blancofondo">#ffffff</color>
     <color name="azulfondo">#ff2d3f51</color>
+    <color name="azulfuerte">#1E88E5</color>
+    <color name="fondonav">#ffffff</color>
 </resources>

@@ -35,5 +35,6 @@
     <string name="URLFacebook">http://www.facebook.com/cbtis122</string>
     <string name="URLTwitterAPP">twitter://user?screen_name=cbtis122</string>
     <string name="URLTwitter">https://twitter.com/#!/cbtis122</string>
+    <string name="MensajeSugerencias">¿Tienes un comentario que quieras hacernos llegar? ¿una sugerencia, duda, opinion?, este es el lugar para expresarla.</string>
 
 </resources>
