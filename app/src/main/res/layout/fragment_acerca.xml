@@ -7,17 +7,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/fondoradio">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Equipo"
             android:id="@+id/textView8"
+            android:layout_marginTop="19dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/azulfondo"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_alignLeft="@+id/Carolina"
+            android:layout_alignStart="@+id/Carolina" />
 
 
         <TextView
@@ -97,7 +100,6 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_daniel"
             android:id="@+id/Daniel"
             android:layout_below="@+id/Hamlet"
             android:layout_alignParentLeft="true"
@@ -110,7 +112,8 @@
             android:layout_height="70dp"
             android:src="@drawable/ic_carolina"
             android:id="@+id/Carolina"
-            android:layout_marginTop="55dp"
+            android:layout_below="@+id/barra"
+            android:layout_marginTop="15dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp" />
@@ -118,7 +121,6 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_idaly"
             android:id="@+id/Idaly"
             android:layout_below="@+id/Carolina"
             android:layout_alignParentLeft="true"
@@ -129,7 +131,6 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_hamlet"
             android:id="@+id/Hamlet"
             android:layout_below="@+id/Idaly"
             android:layout_alignParentLeft="true"
@@ -140,42 +141,169 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_logo"
             android:id="@+id/Raul"
             android:layout_below="@+id/textView21"
             android:layout_alignLeft="@+id/Luis"
-            android:layout_alignStart="@+id/Luis" />
+            android:layout_alignStart="@+id/Luis"
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Asesor"
             android:id="@+id/textView21"
-            android:layout_below="@+id/textView13"
-            android:layout_centerHorizontal="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/azulfondo"
+            android:layout_below="@+id/Luis"
+            android:layout_alignLeft="@+id/Luis"
+            android:layout_alignStart="@+id/Luis"
+            android:layout_marginTop="20dp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Historia"
             android:id="@+id/textView22"
-            android:layout_below="@+id/textView20"
-            android:layout_centerHorizontal="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/azulfondo"
+            android:layout_below="@+id/Raul"
+            android:layout_alignLeft="@+id/Raul"
+            android:layout_alignStart="@+id/Raul"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Un proyecto que nacio como un trabajo para una materia de especialidad, donde se vio la posibilidad de implementarlo a nivel plantel por ideas de la oficina de Construy-t que queria crear un vinculo con el alumnado del plantel como lo marcan sus delineamientos por lo que nos pusimos manos a la obra comenzando con el desarrollo de la estacion de radio para presentarla primeramente en el concurso local de prototipos bla bla bla"
-            android:id="@+id/textView23"
+            android:text="@string/Historia"
+            android:id="@+id/historia"
             android:layout_below="@+id/textView22"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp" />
+
+        <View
+            android:id="@+id/barra"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/fondo"
+            android:layout_below="@+id/textView8"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@+id/textView8"
+            android:layout_alignStart="@+id/textView8" />
+
+        <View
+            android:id="@+id/barra1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/fondo"
+            android:layout_below="@+id/textView21"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@+id/Raul"
+            android:layout_alignStart="@+id/Raul" />
+
+        <View
+            android:id="@+id/barra3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/fondo"
+            android:layout_below="@+id/textView22"
+            android:layout_alignLeft="@+id/textView22"
+            android:layout_alignStart="@+id/textView22"
+            android:layout_marginRight="10dp" />
+
+        <View
+            android:id="@+id/barra4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/fondo"
+            android:layout_below="@+id/sw"
+            android:layout_alignLeft="@+id/sw"
+            android:layout_alignStart="@+id/sw"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Software"
+            android:id="@+id/sw"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/azulfondo"
+            android:layout_below="@+id/historia"
+            android:layout_alignLeft="@+id/historia"
+            android:layout_alignStart="@+id/historia"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Este proyecto no hubiera podido ser desarrollado sin la ayuda de este grandioso software:"
+            android:id="@+id/textView23"
+            android:layout_below="@+id/barra4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Android Studio"
+            android:id="@+id/textView29"
+            android:layout_below="@+id/textView23"
+            android:layout_alignLeft="@+id/textView23"
+            android:layout_alignStart="@+id/textView23"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Shoutcast"
+            android:id="@+id/textView30"
+            android:layout_below="@+id/textView35"
+            android:layout_alignLeft="@+id/textView35"
+            android:layout_alignStart="@+id/textView35" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Winamp"
+            android:id="@+id/textView31"
+            android:layout_below="@+id/textView30"
+            android:layout_alignLeft="@+id/textView30"
+            android:layout_alignStart="@+id/textView30" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="XAMPP"
+            android:id="@+id/textView34"
+            android:layout_below="@+id/textView31"
+            android:layout_alignLeft="@+id/textView31"
+            android:layout_alignStart="@+id/textView31"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Bootstrap"
+            android:id="@+id/textView35"
+            android:layout_below="@+id/textView29"
+            android:layout_alignLeft="@+id/textView29"
+            android:layout_alignStart="@+id/textView29" />
+
     </RelativeLayout>
 </ScrollView>
 

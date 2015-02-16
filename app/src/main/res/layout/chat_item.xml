@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/botones"
+        android:textColor="#ff00bcff"
         android:textSize="10dp"
         android:textStyle="italic"
-        android:layout_alignParentTop="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_below="@+id/comentario"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="6dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp" />
+        android:text="hjhjhjhj" />
 
     <TextView
         android:id="@+id/fecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="19dp"
-        android:layout_marginRight="19dp"
-        android:textColor="#ff889186"
+        android:textColor="#ff5c635a"
         android:textSize="10dp"
-        android:layout_alignBottom="@+id/comentario"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/comentario"
+        android:layout_alignRight="@+id/barra"
+        android:layout_alignEnd="@+id/barra"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/comentario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bubble_yellow"
-        android:layout_below="@+id/usuario"
-        android:layout_alignLeft="@+id/usuario"
-        android:layout_alignStart="@+id/usuario" />
+        android:background="@drawable/burbujaf"
+        android:textSize="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/azulfondo" />
 
+    <View
+        android:id="@+id/barra"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/usuario"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/azulfuerte" />
 
 </RelativeLayout>

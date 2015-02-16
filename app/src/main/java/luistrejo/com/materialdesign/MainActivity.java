@@ -38,21 +38,21 @@ public class MainActivity extends ActionBarActivity {
     //First We Declare Titles And Icons For Our Navigation Drawer List View
     //This Icons And Titles Are holded in an Array as you can see
 
-    String TITLES[] = {"Radio", "Chat", "Horarios", "Calendario de actividades", "Sugerencias", "Acerca de", "Salir"};
+    String TITLES[] = {"Radio", "Comentarios", "Horarios", "Calendario de actividades", "Sugerencias", "Acerca de", "Salir"};
     int ICONS[] = {
             R.drawable.ic_radio,
-            R.drawable.ic_action,
-            R.drawable.ic_action_clock,
-            R.drawable.ic_calendar,
-            R.drawable.ic_coment,
-            R.drawable.ic_action_info,
-            R.drawable.ic_action_exit};
+            R.drawable.ic_comentarios,
+            R.drawable.ic_horarios,
+            R.drawable.ic_calendario,
+            R.drawable.ic_sugerencia,
+            R.drawable.ic_acercade,
+            R.drawable.ic_salir};
 
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
     String EMAIL = "Cbtis 122";
-    int PROFILE = R.drawable.bull;
+    int PROFILE = R.drawable.ic_sincaratula;
 
     private Toolbar toolbar;                              // Declaring the Toolbar Object
 
@@ -111,96 +111,73 @@ public class MainActivity extends ActionBarActivity {
 
                 if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
 
+                    Drawer.closeDrawers();
+                    Fragment fragment = null;
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Drawer.closeDrawers();
-
-                                    Fragment fragment = null;
-
-                                    switch (recyclerView.getChildPosition(child)) {
-                                        case 1: {
-                                            fragment = new Radio();
-                                            title = "Radio Bulldogs";
-                                            break;
-                                        }
-                                        case 2: {
-                                            fragment = new Chat();
-                                            title = "Chat";
-                                            break;
-                                        }
-                                        case 3: {
-                                            copyAssets();
-                                            break;
-                                        }
-                                        case 4: {
-                                            fragment = new Calendario();
-                                            title = "Calendario de Actividades";
-                                            break;
-                                        }
-                                        case 5: {
-                                            fragment = new Sugerencias();
-                                            title = "Sugerencias";
-                                            break;
-                                        }
-                                        case 6: {
-                                            fragment = new Acerca();
-                                            title = "Acerca de";
-                                            break;
-                                        }
-                                        case 7: {
-
-
-                                            Intent logout = new Intent(MainActivity.this, Login.class);
-                                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(logout);
-                                            // guardar true para login para no mostrar esta activity de nuevo
-                                            editor2.putString("login", "false");
-                                            editor2.commit();
-
-                                            //si esta activo el servicio de musica lo cerramos
-                                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
-
-
-                                            break;
-                                        }
-
-                                        default:
-                                            break;
-                                    }
-                                    if (fragment != null) {
-                                        try {
-                                            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-                                            setActionBarTitle(title);
-                                        } catch (IllegalStateException e) {
-                                            Log.d("Fragment manager", "IlegalStateException");
-                                        } catch (Exception e) {
-                                            Log.d("Fragment manager", "Error añadiendo fragment");
-
-                                        }
-                                    } else {
-
-                                        Log.d("Main Activity", "Error creando fragments");
-                                    }
-                                }
-                            });
+                    switch (recyclerView.getChildPosition(child)) {
+                        case 1: {
+                            fragment = new Radio();
+                            title = "Radio Bulldogs";
+                            break;
                         }
-                    }).start();
+                        case 2: {
+                            fragment = new Chat();
+                            title = "Chat";
+                            break;
+                        }
+                        case 3: {
+                            copyAssets();
+                            break;
+                        }
+                        case 4: {
+                            fragment = new Calendario();
+                            title = "Calendario de Actividades";
+                            break;
+                        }
+                        case 5: {
+                            fragment = new Sugerencias();
+                            title = "Sugerencias";
+                            break;
+                        }
+                        case 6: {
+                            fragment = new Acerca();
+                            title = "Acerca de";
+                            break;
+                        }
+                        case 7: {
 
 
+                            Intent logout = new Intent(MainActivity.this, Login.class);
+                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(logout);
+                            // guardar true para login para no mostrar esta activity de nuevo
+                            editor2.putString("login", "false");
+                            editor2.commit();
+
+                            //si esta activo el servicio de musica lo cerramos
+                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
 
 
+                            break;
+                        }
 
+                        default:
+                            break;
+                    }
+                    if (fragment != null) {
+                        try {
+                            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+                            setActionBarTitle(title);
+                        } catch (IllegalStateException e) {
+                            Log.d("Fragment manager", "IlegalStateException");
+                        } catch (Exception e) {
+                            Log.d("Fragment manager", "Error añadiendo fragment");
 
+                        }
+                    } else {
+
+                        Log.d("Main Activity", "Error creando fragments");
+                    }
                 }
 
                 return false;

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +60,6 @@ public class Chat extends Fragment {
     JSONArray jsonarray;
     ListView listview;
     ListViewAdapter adapter;
-    ProgressDialog mProgressDialog;
     ArrayList<HashMap<String, String>> arraylist;
     public static String usuario = "usuario";
     public static String comentario = "comentario";
@@ -72,6 +72,7 @@ public class Chat extends Fragment {
     TextView error;
     Boolean cambio, errorb;
     ProgressBarCircularIndeterminate circulo;
+    ImageView errorimg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class Chat extends Fragment {
         mensaje = (EditText) rootView.findViewById(R.id.etMensaje);
         enviar = (CustomView) rootView.findViewById(R.id.Enviar);
         error = (TextView) rootView.findViewById(R.id.mensajeconexion);
+        errorimg = (ImageView) rootView.findViewById(R.id.errorimg);
         circulo = (ProgressBarCircularIndeterminate) rootView.findViewById(R.id.cargandocomentarios);
 
         enviar.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +137,7 @@ public class Chat extends Fragment {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.0.109/RadioB/insertarcomentario.php");
+        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/comentar.php");
 
         //Consultamos valor usuario del shared preferences
         SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
@@ -173,7 +175,7 @@ public class Chat extends Fragment {
 
         protected void onPreExecute() {
             //para el progress dialog
-            pDialog = new com.gc.materialdesign.widgets.ProgressDialog(Chat.this.getActivity(), "Enviando Comentario.", R.color.azulfuerte);
+            pDialog = new com.gc.materialdesign.widgets.ProgressDialog(Chat.this.getActivity(), "Enviando Comentario", R.color.azulfuerte);
             pDialog.show();
         }
 
@@ -284,8 +286,10 @@ public class Chat extends Fragment {
 
             if (errorb == true) {
                 error.setVisibility(View.VISIBLE);
+                errorimg.setVisibility(View.VISIBLE);
             } else {
                 error.setVisibility(View.GONE);
+                errorimg.setVisibility(View.GONE);
             }
         }
 

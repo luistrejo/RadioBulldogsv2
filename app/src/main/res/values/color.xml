@@ -7,9 +7,10 @@
     <color name="blue_light">#ff33b5e5</color>
     <color name="texto">#fff</color>
     <color name="fondo">#ff1ab89b</color>
-    <color name="botones">#ff19e9cc</color>
+    <color name="botones">#ff2d3f51</color>
     <color name="blancofondo">#ffffff</color>
     <color name="azulfondo">#ff2d3f51</color>
     <color name="azulfuerte">#1E88E5</color>
     <color name="fondonav">#ffffff</color>
+    <color name="fondoradio">#E9EAE9</color>
 </resources>

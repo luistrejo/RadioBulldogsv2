@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff1ab89b">
+    android:background="@drawable/fondologin">
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,7 +22,7 @@
             android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="Nombre"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords|textPersonName"
             android:lines="1"
             android:maxLength="30"
             android:textAlignment="center"
@@ -40,7 +40,7 @@
             android:layout_below="@+id/etpaterno"
             android:ems="10"
             android:hint="Materno"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textPersonName"
             android:lines="1"
             android:maxLength="30"
             android:textAlignment="center"
@@ -58,7 +58,7 @@
             android:layout_below="@+id/etnombre"
             android:ems="10"
             android:hint="Paterno"
-            android:inputType="textPersonName"
+            android:inputType="textCapSentences|textPersonName"
             android:lines="1"
             android:maxLength="30"
             android:textColorHint="@color/fondo"

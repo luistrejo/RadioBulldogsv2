@@ -277,7 +277,7 @@ public class Radio extends Fragment implements View.OnClickListener {
             if (fondo == null) {
                 caratula.setImageResource(R.drawable.sincaratula);
                 try {
-                    rootView.setBackgroundColor(getResources().getColor(R.color.azulfondo));
+                    rootView.setBackgroundResource(R.drawable.fondochat);
                 } catch (IllegalStateException e) {
                     e.printStackTrace();
                     Log.d(TAG, "Not atachet to activity");
@@ -294,7 +294,7 @@ public class Radio extends Fragment implements View.OnClickListener {
                             .create(rs, Element.U8_4(rs));
                     Allocation tmpIn = Allocation.createFromBitmap(rs, fondo);
                     Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
-                    theIntrinsic.setRadius(17);
+                    theIntrinsic.setRadius(10);
                     theIntrinsic.setInput(tmpIn);
                     theIntrinsic.forEach(tmpOut);
                     tmpOut.copyTo(outputBitmap);
