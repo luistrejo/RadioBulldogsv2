@@ -156,7 +156,7 @@ public class Radio extends Fragment implements View.OnClickListener {
             case R.id.startPlaying:
 
 
-                if (corriendo == true) {
+                if (corriendo) {
                     Log.d(TAG, "onClick: Deteniendo servicio");
                     getActivity().stopService(new Intent(getActivity(), Servicio.class));
                     Drawable play = getResources().getDrawable(R.drawable.ic_play);

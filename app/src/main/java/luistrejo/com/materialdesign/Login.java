@@ -45,7 +45,8 @@ public class Login extends Activity {
     com.gc.materialdesign.widgets.ProgressDialog dialog;
     // String URL_connect="http://www.scandroidtest.site90.com/acces.php";
     String URL_connect = "http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
-
+    String URL_idusuario = "http://192.168.0.109/RadioB/login/guardaidusuario.php";
+    String usuario;
     boolean result_back;
     SharedPreferences pref;
     SharedPreferences.Editor editor2;
@@ -71,7 +72,7 @@ public class Login extends Activity {
             public void onClick(View view) {
 
                 //Extreamos datos de los EditText
-                String usuario = user.getText().toString();
+                usuario = user.getText().toString();
                 String passw = pass.getText().toString();
 
                 //verificamos si estan en blanco
@@ -237,23 +238,57 @@ public class Login extends Activity {
 
             if (result.equals("ok")) {
 
-                // guardar true para login para no mostrar esta activity de nuevo
-                editor2.putString("login", "true");
-                editor2.commit();
-                //Si el login fue valido redireccionamos a la main
-                Intent i = new Intent(Login.this, MainActivity.class);
-                i.putExtra("user", user);
-                startActivity(i);
+//////////////////////////////////////////////////////////
 
-            } else {
-                err_login();
+                int id = 0;
+
+    	/*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
+         * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
+                ArrayList<NameValuePair> postparameters2send1 = new ArrayList<NameValuePair>();
+
+                postparameters2send1.add(new BasicNameValuePair("usuario", usuario));
+
+                //realizamos una peticion y como respuesta obtenes un array JSON
+                JSONArray jdata1 = post.getserverdata(postparameters2send1, URL_idusuario);
+
+
+                //si lo que obtuvimos no es null
+                if (jdata1 != null && jdata1.length() > 0) {
+
+                    JSONObject json_data; //creamos un objeto JSON
+                    try {
+                        json_data = jdata1.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
+                        id = json_data.getInt("");//accedemos al valor
+                        Log.e("id", "id = " + id);//muestro por log que obtuvimos
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+
+                    //////////////////////////////////////////
+
+
+                    // guardar true para login para no mostrar esta activity de nuevo
+                    editor2.putString("login", "true");
+                    editor2.commit();
+                    //Si el login fue valido redireccionamos a la main
+                    Intent i = new Intent(Login.this, MainActivity.class);
+                    i.putExtra("user", user);
+                    startActivity(i);
+
+                } else {
+                    err_login();
+                }
+
             }
 
         }
 
+
     }
 
-    //evitar que vuelva a la actividad de login
+    //evitar que vuelva a la actividad principal
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -262,5 +297,4 @@ public class Login extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }

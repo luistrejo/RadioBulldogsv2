@@ -105,7 +105,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_daniel" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
@@ -126,7 +127,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_idaly" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
@@ -136,7 +138,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_hamlet" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
@@ -145,7 +148,8 @@
             android:layout_below="@+id/textView21"
             android:layout_alignLeft="@+id/Luis"
             android:layout_alignStart="@+id/Luis"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_toledo" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -22,8 +22,7 @@ public class Calendario extends ListFragment implements View.OnClickListener {
     static class SimpleAdapter extends ArrayAdapter<Item> implements PinnedSectionListAdapter {
 
         private static final int[] COLORS = new int[]{
-                R.color.green_light, R.color.orange_light,
-                R.color.blue_light, R.color.red_light};
+                R.color.calendario};
 
         public SimpleAdapter(Context context, int resource, int textViewResourceId) {
             super(context, resource, textViewResourceId);
@@ -237,15 +236,6 @@ public class Calendario extends ListFragment implements View.OnClickListener {
         outState.putBoolean("hasHeaderAndFooter", hasHeaderAndFooter);
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        Item item = (Item) getListView().getAdapter().getItem(position);
-        if (item != null) {
-            Toast.makeText(this.getActivity(), "Item " + position + ": " + item.text, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this.getActivity(), "Item " + position, Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     private void initializePadding() {

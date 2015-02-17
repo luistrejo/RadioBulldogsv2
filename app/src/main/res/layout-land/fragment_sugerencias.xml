@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logo"
-        android:layout_marginTop="34dp"
         android:src="@drawable/ic_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -23,37 +22,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout4"
+        android:layout_alignParentEnd="false"
         android:layout_below="@+id/logo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:text="@string/MensajeSugerencias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView14"
-            android:layout_marginTop="39dp"
             android:textColor="@color/azulfondo"
             android:layout_below="@+id/logo"
             android:layout_centerHorizontal="true" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="582dp"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine|textCapSentences|textAutoComplete|textAutoCorrect"
             android:ems="10"
             android:id="@+id/etsugerencia"
             android:background="@android:drawable/editbox_background_normal"
             android:height="100dp"
-            android:layout_below="@+id/textView14"
-            android:layout_marginTop="35dp"
-            android:layout_alignRight="@+id/textView14"
-            android:layout_alignEnd="@+id/textView14"
+            android:layout_below="@+id/linearLayout4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout3">
+
+    </RelativeLayout>
 
     <com.gc.materialdesign.views.ButtonRectangle
         android:id="@+id/enviarsugerencia"
@@ -62,8 +65,8 @@
         android:background="@color/ColorPrimary"
         android:text="Enviar sugerencia"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/linearLayout4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
