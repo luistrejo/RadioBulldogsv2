@@ -67,7 +67,7 @@ public class Radio extends Fragment implements View.OnClickListener {
     JSONObject json;
     JSONObject c;
     public static boolean corriendo;
-    SharedPreferences playstop;
+    SharedPreferences settings;
     SharedPreferences.Editor editor;
     private AudioManager myAudioManager;
 
@@ -99,9 +99,9 @@ public class Radio extends Fragment implements View.OnClickListener {
         name1 = (TextView) rootView.findViewById(R.id.nextcancion);
         uid.setSelected(true);
         name1.setSelected(true);
-        playstop = getActivity().getSharedPreferences("playstop", Context.MODE_PRIVATE);
-        editor = playstop.edit();
-        Boolean presionado = playstop.getBoolean("play", false);
+        settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        editor = settings.edit();
+        Boolean presionado = settings.getBoolean("play", true);
         if (presionado == true) {
             Log.d(TAG, "Presionado");
             Drawable play1 = getResources().getDrawable(R.drawable.ic_play);

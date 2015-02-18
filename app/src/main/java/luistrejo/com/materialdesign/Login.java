@@ -1,12 +1,9 @@
 package luistrejo.com.materialdesign;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -19,19 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.gc.materialdesign.widgets.Dialog;
-import com.parse.Parse;
-import com.parse.ParsePush;
-import com.parse.SaveCallback;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import luistrejo.com.materialdesign.Loginaux.Httppostaux;
@@ -43,13 +33,12 @@ public class Login extends Activity {
     Button blogin;
     Httppostaux post;
     com.gc.materialdesign.widgets.ProgressDialog dialog;
-    // String URL_connect="http://www.scandroidtest.site90.com/acces.php";
     String URL_connect = "http://192.168.0.109/RadioB/login/acces.php";//ruta en donde estan nuestros archivos
-    String URL_idusuario = "http://192.168.0.109/RadioB/login/guardaidusuario.php";
     String usuario;
     boolean result_back;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor2;
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
+    String id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,16 +46,14 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         post = new Httppostaux();
-
         user = (EditText) findViewById(R.id.etemail);
         pass = (EditText) findViewById(R.id.etpass);
         blogin = (Button) findViewById(R.id.btlogin);
-        pref = getSharedPreferences("estatuslogin", MODE_PRIVATE);
-        editor2 = pref.edit();
+        settings = getSharedPreferences("usuario", MODE_PRIVATE);
+        editor = settings.edit();
         TextView newcuenta = (TextView) findViewById(R.id.newcuenta);
         estatus();
 
-        //Login button action
         blogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -79,16 +66,15 @@ public class Login extends Activity {
                 if (checklogindata(usuario, passw) == true) {
 
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
-
                     new asynclogin().execute(usuario, passw);
 
                     //Guardamos el valor del usuario en un shared preferences
-
-                    SharedPreferences settings = getSharedPreferences("usuario", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
+                    settings = getSharedPreferences("usuario", MODE_PRIVATE);
+                    editor = settings.edit();
                     editor.clear();
                     editor.putString("usuario", usuario);
                     editor.commit();
+
 
                 } else {
                     //si detecto un error en la primera validacion vibrar y mostrar un Toast con un mensaje de error.
@@ -113,8 +99,8 @@ public class Login extends Activity {
     //si ya esta logueado es true y lo redireccionamos a la activity principal
 
     public void estatus() {
-        String getStatus = pref.getString("login", "nil");
-        if (getStatus.equals("true")) {
+        boolean getStatus = settings.getBoolean("login", false);
+        if (getStatus == true) {
             Intent Main = new Intent(this, MainActivity.class);
             startActivity(Main);
         } else {
@@ -135,22 +121,15 @@ public class Login extends Activity {
     /*Valida el estado del logueo solamente necesita como parametros el usuario y passw*/
     public boolean loginstatus(String username, String password) {
         int logstatus = -1;
-
-    	/*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
+        id = "-1";
+        /*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
          * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
         ArrayList<NameValuePair> postparameters2send = new ArrayList<NameValuePair>();
-
         postparameters2send.add(new BasicNameValuePair("usuario", username));
         postparameters2send.add(new BasicNameValuePair("password", password));
 
         //realizamos una peticion y como respuesta obtenes un array JSON
         JSONArray jdata = post.getserverdata(postparameters2send, URL_connect);
-
-      		/*como estamos trabajando de manera local el ida y vuelta sera casi inmediato
-               * para darle un poco realismo decimos que el proceso se pare por unos segundos para poder
-      		 * observar el progressdialog
-      		 * la podemos eliminar si queremos
-      		 */
         SystemClock.sleep(700);
 
         //si lo que obtuvimos no es null
@@ -160,7 +139,10 @@ public class Login extends Activity {
             try {
                 json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
                 logstatus = json_data.getInt("logstatus");//accedemos al valor
+                id = json_data.getString("id");
+
                 Log.e("loginstatus", "logstatus= " + logstatus);//muestro por log que obtuvimos
+                Log.e("id", "id= " + id);
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -237,50 +219,16 @@ public class Login extends Activity {
             Log.e("onPostExecute=", "" + result);
 
             if (result.equals("ok")) {
+                editor.putString("id", id);
+                editor.putBoolean("login", true);
+                editor.commit();
+                //Si el login fue valido redireccionamos a la main
+                Intent i = new Intent(Login.this, MainActivity.class);
+                i.putExtra("user", user);
+                startActivity(i);
 
-//////////////////////////////////////////////////////////
-
-                int id = 0;
-
-    	/*Creamos un ArrayList del tipo nombre valor para agregar los datos recibidos por los parametros anteriores
-         * y enviarlo mediante POST a nuestro sistema para relizar la validacion*/
-                ArrayList<NameValuePair> postparameters2send1 = new ArrayList<NameValuePair>();
-
-                postparameters2send1.add(new BasicNameValuePair("usuario", usuario));
-
-                //realizamos una peticion y como respuesta obtenes un array JSON
-                JSONArray jdata1 = post.getserverdata(postparameters2send1, URL_idusuario);
-
-
-                //si lo que obtuvimos no es null
-                if (jdata1 != null && jdata1.length() > 0) {
-
-                    JSONObject json_data; //creamos un objeto JSON
-                    try {
-                        json_data = jdata1.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                        id = json_data.getInt("");//accedemos al valor
-                        Log.e("id", "id = " + id);//muestro por log que obtuvimos
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-
-                    //////////////////////////////////////////
-
-
-                    // guardar true para login para no mostrar esta activity de nuevo
-                    editor2.putString("login", "true");
-                    editor2.commit();
-                    //Si el login fue valido redireccionamos a la main
-                    Intent i = new Intent(Login.this, MainActivity.class);
-                    i.putExtra("user", user);
-                    startActivity(i);
-
-                } else {
-                    err_login();
-                }
-
+            } else {
+                err_login();
             }
 
         }

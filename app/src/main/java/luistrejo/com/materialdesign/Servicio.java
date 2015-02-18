@@ -42,12 +42,8 @@ public class Servicio extends Service {
             imgcaratula = null;
             Radio caratula = new Radio();
 
-
-            //Cuando la imagen es null crash (arreglar)
-            ///
-            //
             if (caratula.caratulaimg != null) {
-                imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 125, 125, false);
+                imgcaratula = Bitmap.createScaledBitmap(caratula.caratulaimg, 127, 127, false);
                 builder.setLargeIcon(imgcaratula);
                 builder.setContentText(idnoti);
                 mNotificationManager.notify(notifyID, builder.build());
@@ -62,13 +58,8 @@ public class Servicio extends Service {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
     public void onCreate() {
-        Toast.makeText(this, "Servicio creado",
-                Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Servicio creado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onCreate");
         player = new MediaPlayer();
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -139,7 +130,6 @@ public class Servicio extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Servicio detenido", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
         player.stop();
         Radio.corriendo = false;

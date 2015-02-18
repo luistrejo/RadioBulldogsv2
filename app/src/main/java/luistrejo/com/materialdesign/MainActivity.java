@@ -60,15 +60,11 @@ public class MainActivity extends ActionBarActivity {
     RecyclerView.Adapter mAdapter;                        // Declaring Adapter For Recycler View
     RecyclerView.LayoutManager mLayoutManager;            // Declaring Layout Manager as a linear layout manager
     DrawerLayout Drawer;                                  // Declaring DrawerLayout
-
     ActionBarDrawerToggle mDrawerToggle;                  // Declaring Action Bar Drawer Toggle
-
-
     String title = null;
     FragmentManager fragmentManager = getFragmentManager();
-
-    SharedPreferences pref;
-    SharedPreferences.Editor editor2;
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -76,8 +72,8 @@ public class MainActivity extends ActionBarActivity {
         //Consultamos valor usuario del shared preferences
         SharedPreferences settings = MainActivity.this.getSharedPreferences("usuario", Context.MODE_PRIVATE);
         String NAME = settings.getString("usuario", "?");
-        pref = getSharedPreferences("estatuslogin", MODE_PRIVATE);
-        editor2 = pref.edit();
+        settings = getSharedPreferences("usuario", MODE_PRIVATE);
+        editor = settings.edit();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -146,17 +142,30 @@ public class MainActivity extends ActionBarActivity {
                         }
                         case 7: {
 
+                            final Dialog dialog = new Dialog(MainActivity.this, "Salir", "Estas a punto de salir");
+                            dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
 
-                            Intent logout = new Intent(MainActivity.this, Login.class);
-                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(logout);
-                            // guardar true para login para no mostrar esta activity de nuevo
-                            editor2.putString("login", "false");
-                            editor2.commit();
+                                @Override
+                                public void onClick(View v) {
+                                    Intent logout = new Intent(MainActivity.this, Login.class);
+                                    logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(logout);
+                                    // guardar true para login para no mostrar esta activity de nuevo
+                                    editor.putBoolean("login", false);
+                                    editor.commit();
 
-                            //si esta activo el servicio de musica lo cerramos
-                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                    //si esta activo el servicio de musica lo cerramos
+                                    MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                }
+                            });
+                            dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
 
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
 
                             break;
                         }
@@ -189,31 +198,23 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-
         mLayoutManager = new LinearLayoutManager(this);                 // Creating a layout Manager
-
         mRecyclerView.setLayoutManager(mLayoutManager);                 // Setting the layout Manager
-
-
         Drawer = (DrawerLayout) findViewById(R.id.DrawerLayout);        // Drawer object Assigned to the view
         mDrawerToggle = new ActionBarDrawerToggle(this, Drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                // code here will execute once the drawer is opened( As I dont want anything happened whe drawer is
-                // open I am not going to put anything here)
                 title = "Radio Bulldogs";
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                // Code here will execute once drawer is closed
             }
 
-
-        }; // Drawer Toggle Object Made
+        };
         Drawer.setDrawerListener(mDrawerToggle); // Drawer Listener set to the Drawer toggle
         mDrawerToggle.syncState();               // Finally we set the drawer toggle sync State
 
@@ -229,19 +230,14 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.Cbtis) {
             Intent cbtis = new Intent(MainActivity.this, Cbtis.class);
             cbtis.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -263,14 +259,14 @@ public class MainActivity extends ActionBarActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    /////PDF
+    //PDF
     private void copyAssets() {
         AssetManager assetManager = getAssets();
         String[] files = null;
         try {
             files = assetManager.list("");
         } catch (IOException e) {
-            Log.e("tag", "Failed to get asset file list.", e);
+            Log.e("tag", "Fallo al copiar archivo pdf", e);
         }
         for (String filename : files) {
             InputStream in = null;
@@ -281,20 +277,18 @@ public class MainActivity extends ActionBarActivity {
                 out = new FileOutputStream(outFile);
                 copyFile(in, out);
             } catch (IOException e) {
-                Log.e("tag", "Failed to copy asset file: " + filename, e);
+                Log.e("tag", "Fallo al copiar archivo pdf: " + filename, e);
             } finally {
                 if (in != null) {
                     try {
                         in.close();
                     } catch (IOException e) {
-                        // NOOP
                     }
                 }
                 if (out != null) {
                     try {
                         out.close();
                     } catch (IOException e) {
-                        // NOOP
                     }
                 }
             }

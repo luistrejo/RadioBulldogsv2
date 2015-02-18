@@ -140,9 +140,9 @@ public class Chat extends Fragment {
         httppost = new HttpPost("http://192.168.0.109/radiobulldogE/public/comentar");
 
         //Consultamos valor usuario del shared preferences
-//        SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
-//        String usuario = settings.getString("usuario", "?");
-        usuario = "1";
+        SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        String usuario = settings.getString("id", "0");
+
         //Añadimos los datos que vamos a enviar
         nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("usuario", usuario.toString().trim()));
@@ -208,7 +208,7 @@ public class Chat extends Fragment {
 
         protected void onPostExecute(String result) {
 
-            pDialog.dismiss();//ocultamos progess dialog.
+            pDialog.dismiss();
 
 
         }
@@ -222,7 +222,6 @@ public class Chat extends Fragment {
         protected Void doInBackground(Void... params) {
             cambio = false;
             errorb = false;
-            // Locate the array name in JSON
             jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
             try {
                 jsonarray = jsonobject.getJSONArray("comentarios");
@@ -274,9 +273,7 @@ public class Chat extends Fragment {
             if (cambio == true) {
                 try {
                     listview = (ListView) getActivity().findViewById(R.id.listview);
-                    // Pass the results into ListViewAdapter.java
                     adapter = new ListViewAdapter(getActivity(), arraylist);
-                    // Set the adapter to the ListView
                     listview.setAdapter(adapter);
                 } catch (Exception e) {
                     Log.d(TAG, "Error al cargar lista de comentarios");
