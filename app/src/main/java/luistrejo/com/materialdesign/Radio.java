@@ -50,7 +50,7 @@ public class Radio extends Fragment implements View.OnClickListener {
     private static final String TAG = "Radio";
     private SeekBar volumeSeekbar = null;
     ImageButton buttonStart, subir, bajar;
-    public String url = "http://192.168.0.109/RadioB/pag.php";
+    public String url = "http://192.168.1.64/radiobulldogE/public/currentSong";
     private static final String TAG_USER = "streams";
     private static final String TAG_ID = "songtitle";
     private static final String TAG_NAME = "nexttitle";
@@ -246,7 +246,7 @@ public class Radio extends Fragment implements View.OnClickListener {
 
 
         protected Void doInBackground(Void... urls) {
-            String urlcaratula = "http://192.168.0.109:8000/playingart?sid=1";
+            String urlcaratula = "http://192.168.1.64:8000/playingart?sid=1";
             caratulaimg = null;
             fondo = null;
 

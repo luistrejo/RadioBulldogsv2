@@ -137,7 +137,7 @@ public class Chat extends Fragment {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.0.109/radiobulldogE/public/comentar");
+        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/comentar");
 
         //Consultamos valor usuario del shared preferences
         SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);

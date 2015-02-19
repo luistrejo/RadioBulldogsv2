@@ -42,7 +42,7 @@ public class Registro extends ActionBarActivity {
     private Spinner especialidad, gradogrupo;
     private Button insertar;
     Httppostaux post;
-    String URL_connect = "http://192.168.0.109/RadioB/userexistente/acces.php";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.64/radiobulldogE/public";//ruta en donde estan nuestros archivos
 
 
     @Override
@@ -126,7 +126,7 @@ public class Registro extends ActionBarActivity {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.0.109/RadioB/nuevousuario.php");
+        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public");
         //Añadimos los datos
         nameValuePairs = new ArrayList<NameValuePair>(7);
         nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
@@ -214,8 +214,8 @@ public class Registro extends ActionBarActivity {
             JSONObject json_data; //creamos un objeto JSON
             try {
                 json_data = jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                logstatus = json_data.getInt("logstatus");//accedemos al valor
-                Log.e("loginstatus", "logstatus= " + logstatus);//muestro por log que obtuvimos
+                logstatus = json_data.getInt("existe");//accedemos al valor
+                Log.e("existe", "existe= " + logstatus);//muestro por log que obtuvimos
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
