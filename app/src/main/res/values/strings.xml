@@ -36,7 +36,9 @@
     <string name="URLTwitterAPP">twitter://user?screen_name=cbtis122</string>
     <string name="URLTwitter">https://twitter.com/#!/cbtis122</string>
     <string name="MensajeSugerencias">¿Tienes un comentario que quieras hacernos llegar? ¿una sugerencia, duda, opinion?, este es el lugar para expresarla.</string>
-    <string name="Historia">Radio Bulldogs un proyecto que comenzo como un proyecto para una feria de expoprototipos por sugerencia de nuestro asesor, el profesor Raul Toledo.</string>
+    <string name="Historia">Radio Bulldogs un proyecto que comenzó como un proyecto para una feria de expo-prototipos de nuestro plantel por sugerencia de
+        nuestro asesor, el profesor Raúl Toledo, con la firme idea de dejar una huella en el plantel fue como nació este proyecto, en el cual se conjugan
+        la  totalidad de las materias de nuestra especialidad, Bases de datos, Aplicaciones Web, Aplicaciones Móviles, Programación orientada a Objetos.</string>
 
 
 </resources>

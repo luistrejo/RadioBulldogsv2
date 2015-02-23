@@ -38,11 +38,11 @@ import luistrejo.com.materialdesign.Loginaux.Httppostaux;
 
 public class Registro extends ActionBarActivity {
     String TAG = "Registro";
-    private EditText nombre, paterno, materno, usuario, contrasena;
+    private EditText nombre, paterno, usuario, contrasena;
     private Spinner especialidad, gradogrupo;
     private Button insertar;
     Httppostaux post;
-    String URL_connect = "http://192.168.1.64/radiobulldogE/public";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.64/radiobulldogE/public/registrar";//ruta en donde estan nuestros archivos
 
 
     @Override
@@ -56,7 +56,6 @@ public class Registro extends ActionBarActivity {
 
         nombre = (EditText) findViewById(R.id.etnombre);
         paterno = (EditText) findViewById(R.id.etpaterno);
-        materno = (EditText) findViewById(R.id.etmaterno);
         usuario = (EditText) findViewById(R.id.etusuario);
         contrasena = (EditText) findViewById(R.id.etcontraseña);
         especialidad = (Spinner) findViewById(R.id.spinEspecialidad);
@@ -71,7 +70,6 @@ public class Registro extends ActionBarActivity {
 
                 if (!nombre.getText().toString().trim().equalsIgnoreCase("") ||
                         !paterno.getText().toString().trim().equalsIgnoreCase("") ||
-                        !materno.getText().toString().trim().equalsIgnoreCase("") ||
                         !usuario.getText().toString().trim().equalsIgnoreCase("") ||
                         !contrasena.getText().toString().trim().equalsIgnoreCase(""))
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
@@ -126,12 +124,11 @@ public class Registro extends ActionBarActivity {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public");
+        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/registrarAndroid");
         //Añadimos los datos
-        nameValuePairs = new ArrayList<NameValuePair>(7);
+        nameValuePairs = new ArrayList<NameValuePair>(6);
         nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("paterno", paterno.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("materno", materno.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("apellido", paterno.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("usuario", usuario.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("contrasena", contrasena.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("gradogrupo", gradogrupo.getSelectedItem().toString().trim()));
@@ -167,7 +164,6 @@ public class Registro extends ActionBarActivity {
                         Toast.makeText(context, "Registro exitoso.", Toast.LENGTH_LONG).show();
                         nombre.setText("");
                         paterno.setText("");
-                        materno.setText("");
                         usuario.setText("");
                         contrasena.setText("");
                         Intent i = new Intent(Registro.this, Login.class);

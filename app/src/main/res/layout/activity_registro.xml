@@ -32,24 +32,6 @@
             android:textColor="@color/fondo" />
 
         <EditText
-            android:id="@+id/etmaterno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/etpaterno"
-            android:layout_alignStart="@+id/etpaterno"
-            android:layout_below="@+id/etpaterno"
-            android:ems="10"
-            android:hint="Materno"
-            android:inputType="textCapSentences|textPersonName"
-            android:lines="1"
-            android:maxLength="30"
-            android:textAlignment="center"
-            android:textColorHint="@color/fondo"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@color/fondo" />
-
-        <EditText
             android:id="@+id/etpaterno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +39,7 @@
             android:layout_alignStart="@+id/etnombre"
             android:layout_below="@+id/etnombre"
             android:ems="10"
-            android:hint="Paterno"
+            android:hint="Apellidos"
             android:inputType="textCapSentences|textPersonName"
             android:lines="1"
             android:maxLength="30"
@@ -75,7 +57,7 @@
             android:layout_alignRight="@+id/etmaterno"
             android:layout_alignStart="@+id/etmaterno"
             android:layout_below="@+id/etmaterno"
-            android:hint="Usuario"
+            android:hint="Nombre de Usuario"
             android:inputType="textPersonName"
             android:lines="1"
             android:maxLength="30"

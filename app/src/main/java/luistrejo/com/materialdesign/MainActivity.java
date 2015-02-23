@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                         case 2: {
                             fragment = new Chat();
-                            title = "Chat";
+                            title = "Comentarios";
                             break;
                         }
                         case 3: {
@@ -142,30 +142,32 @@ public class MainActivity extends ActionBarActivity {
                         }
                         case 7: {
 
-                            final Dialog dialog = new Dialog(MainActivity.this, "Salir", "Estas a punto de salir");
-                            dialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                            builder1.setMessage("Estas a punto de cerrar sesión");
+                            builder1.setCancelable(true);
+                            builder1.setPositiveButton("Entendido",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent logout = new Intent(MainActivity.this, Login.class);
+                                            logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(logout);
+                                            // guardar true para login para no mostrar esta activity de nuevo
+                                            editor.putBoolean("login", false);
+                                            editor.commit();
 
-                                @Override
-                                public void onClick(View v) {
-                                    Intent logout = new Intent(MainActivity.this, Login.class);
-                                    logout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(logout);
-                                    // guardar true para login para no mostrar esta activity de nuevo
-                                    editor.putBoolean("login", false);
-                                    editor.commit();
+                                            //si esta activo el servicio de musica lo cerramos
+                                            MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
+                                        }
+                                    });
+                            builder1.setNegativeButton("Cancelar",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
 
-                                    //si esta activo el servicio de musica lo cerramos
-                                    MainActivity.this.stopService(new Intent(MainActivity.this, Servicio.class));
-                                }
-                            });
-                            dialog.setOnCancelButtonClickListener(new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
-                            dialog.show();
+                            AlertDialog salir = builder1.create();
+                            salir.show();
 
                             break;
                         }

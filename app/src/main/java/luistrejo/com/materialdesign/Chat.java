@@ -142,7 +142,6 @@ public class Chat extends Fragment {
         //Consultamos valor usuario del shared preferences
         SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
         String usuario = settings.getString("id", "0");
-
         //Añadimos los datos que vamos a enviar
         nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("usuario", usuario.toString().trim()));
@@ -222,7 +221,8 @@ public class Chat extends Fragment {
         protected Void doInBackground(Void... params) {
             cambio = false;
             errorb = false;
-            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
+            //jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
+            jsonobject = JSONfunctions.getJSONfromURL(null);
             try {
                 jsonarray = jsonobject.getJSONArray("comentarios");
             } catch (NullPointerException e) {

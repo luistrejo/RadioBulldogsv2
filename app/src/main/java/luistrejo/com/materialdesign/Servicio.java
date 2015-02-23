@@ -102,7 +102,6 @@ public class Servicio extends Service {
     @Override
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
 
-        Toast.makeText(this, "Servicio Iniciado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onStart");
         player.start();
         Radio.corriendo = true;
@@ -113,7 +112,7 @@ public class Servicio extends Service {
 
         builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_logo)
-                .setTicker("Radio Bulldogs: La estacion de radio mas perra!")
+                .setTicker("Radio Bulldogs: La estación de radio más perra!")
                 .setContentTitle("Radio Bulldogs")
                 .setContentText(idnoti)
                 .setLargeIcon(imgcaratula)

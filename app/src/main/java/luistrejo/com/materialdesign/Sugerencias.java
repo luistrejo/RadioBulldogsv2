@@ -101,11 +101,11 @@ public class Sugerencias extends Fragment {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.0.109/RadioB/insertarsugerencia.php");
+        //httppost = new HttpPost("http://192.168.0.109/RadioB/insertarsugerencia.php");
+        httppost = new HttpPost("");
 
-        //Consultamos valor usuario del shared preferences
         SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
-        String usuario = settings.getString("usuario", "?");
+        String usuario = settings.getString("id", "0");
 
         //Añadimos los datos que vamos a enviar
         nameValuePairs = new ArrayList<NameValuePair>(2);

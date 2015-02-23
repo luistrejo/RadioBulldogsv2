@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="MSI Raul Alberto Toledo Piñon"
+            android:text="MSI Raúl Alberto Toledo Piñón "
             android:id="@+id/textView20"
             android:layout_marginBottom="25dp"
             android:layout_alignBottom="@+id/Raul"
