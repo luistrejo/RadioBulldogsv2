@@ -23,7 +23,7 @@ public class Cbtis extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setSubtitle("Informacion");
+        toolbar.setSubtitle("Información");
         cbtis122 = (TextView) findViewById(R.id.cbtis122);
         cbtis122.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         cbtis122.setOnClickListener(onClickListener);

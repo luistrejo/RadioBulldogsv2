@@ -48,7 +48,6 @@ import luistrejo.com.materialdesign.Radiocanciones.JSONParser;
 public class Radio extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Radio";
-    private SeekBar volumeSeekbar = null;
     ImageButton buttonStart, subir, bajar;
     public String url = "http://192.168.1.64/radiobulldogE/public/currentSong";
     private static final String TAG_USER = "streams";
