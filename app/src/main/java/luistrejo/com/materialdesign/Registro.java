@@ -8,7 +8,6 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,11 +37,12 @@ import luistrejo.com.materialdesign.Loginaux.Httppostaux;
 
 public class Registro extends ActionBarActivity {
     String TAG = "Registro";
-    private EditText nombre, paterno, materno, usuario, contrasena;
+    private EditText nombre, paterno, usuario, contrasena;
     private Spinner especialidad, gradogrupo;
     private Button insertar;
     Httppostaux post;
-    String URL_connect = "http://192.168.1.64/radiobulldogE/public";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.1.64/radiobulldogE/public/registrar";//ruta en donde estan nuestros archivos
+    com.gc.materialdesign.widgets.ProgressDialog dialog;
 
 
     @Override
@@ -56,7 +56,6 @@ public class Registro extends ActionBarActivity {
 
         nombre = (EditText) findViewById(R.id.etnombre);
         paterno = (EditText) findViewById(R.id.etpaterno);
-        materno = (EditText) findViewById(R.id.etmaterno);
         usuario = (EditText) findViewById(R.id.etusuario);
         contrasena = (EditText) findViewById(R.id.etcontraseña);
         especialidad = (Spinner) findViewById(R.id.spinEspecialidad);
@@ -71,7 +70,6 @@ public class Registro extends ActionBarActivity {
 
                 if (!nombre.getText().toString().trim().equalsIgnoreCase("") ||
                         !paterno.getText().toString().trim().equalsIgnoreCase("") ||
-                        !materno.getText().toString().trim().equalsIgnoreCase("") ||
                         !usuario.getText().toString().trim().equalsIgnoreCase("") ||
                         !contrasena.getText().toString().trim().equalsIgnoreCase(""))
                     //si pasamos esa validacion ejecutamos el asynctask pasando el usuario y clave como parametros
@@ -121,53 +119,55 @@ public class Registro extends ActionBarActivity {
 
 
     //envio de datos al servidor
-    private boolean insertar() {
-        HttpClient httpclient;
-        List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public");
-        //Añadimos los datos
-        nameValuePairs = new ArrayList<NameValuePair>(7);
-        nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("paterno", paterno.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("materno", materno.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("usuario", usuario.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("contrasena", contrasena.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("gradogrupo", gradogrupo.getSelectedItem().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("especialidad", especialidad.getSelectedItem().toString().trim()));
+    private class insertar extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-        try {
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
-    public class Insertar extends AsyncTask<String, String, String> {
-        private Activity context;
-
-        Insertar(Activity context) {
-            this.context = context;
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            if (insertar())
-                context.runOnUiThread(new Runnable() {
+        protected Boolean doInBackground(Void... params) {
+            HttpClient httpclient;
+            List<NameValuePair> nameValuePairs;
+            HttpPost httppost;
+            httpclient = new DefaultHttpClient();
+            httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/registrarAndroid");
+            //Añadimos los datos
+            nameValuePairs = new ArrayList<NameValuePair>(6);
+            nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));
+            nameValuePairs.add(new BasicNameValuePair("apellido", paterno.getText().toString().trim()));
+            nameValuePairs.add(new BasicNameValuePair("usuario", usuario.getText().toString().trim()));
+            nameValuePairs.add(new BasicNameValuePair("contrasena", contrasena.getText().toString().trim()));
+            nameValuePairs.add(new BasicNameValuePair("gradogrupo", gradogrupo.getSelectedItem().toString().trim()));
+            nameValuePairs.add(new BasicNameValuePair("especialidad", especialidad.getSelectedItem().toString().trim()));
+
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpclient.execute(httppost);
+                return true;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (aBoolean == true)
+                Registro.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Registro exitoso.", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        Toast.makeText(Registro.this, "Registro exitoso.", Toast.LENGTH_LONG).show();
                         nombre.setText("");
                         paterno.setText("");
-                        materno.setText("");
                         usuario.setText("");
                         contrasena.setText("");
                         Intent i = new Intent(Registro.this, Login.class);
@@ -175,15 +175,18 @@ public class Registro extends ActionBarActivity {
                     }
                 });
             else
-                context.runOnUiThread(new Runnable() {
+                Registro.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Algo ha salido mal :(, intentalo de nuevo.", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        Toast.makeText(Registro.this, "Algo ha salido mal :(, intentalo de nuevo.", Toast.LENGTH_LONG).show();
                     }
                 });
-            return null;
+
 
         }
+
+
     }
 
 
@@ -242,8 +245,8 @@ public class Registro extends ActionBarActivity {
         String usuario;
 
         protected void onPreExecute() {
-            //para el progress dialog
-
+            dialog = new com.gc.materialdesign.widgets.ProgressDialog(Registro.this, "Registrando", R.color.azulfuerte);
+            dialog.show();
         }
 
         protected String doInBackground(String... params) {
@@ -271,7 +274,7 @@ public class Registro extends ActionBarActivity {
 
             } else {
                 Log.d(TAG, "Usuario valido, pasamos a registrarlos a la bd.");
-                new Insertar(Registro.this).execute();
+                new insertar().execute();
             }
 
         }
@@ -279,6 +282,7 @@ public class Registro extends ActionBarActivity {
     }
 
     public void usuarioexistente() {
+        dialog.dismiss();
         Vibrator vibrator1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator1.vibrate(200);
         Toast.makeText(Registro.this, "Nombre de usuario ya en uso, por favor intenta con otro.", Toast.LENGTH_LONG).show();

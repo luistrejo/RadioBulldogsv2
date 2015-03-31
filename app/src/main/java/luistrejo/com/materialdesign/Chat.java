@@ -222,7 +222,7 @@ public class Chat extends Fragment {
         protected Void doInBackground(Void... params) {
             cambio = false;
             errorb = false;
-            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/RadioB/GetData.php");
+            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.1.64/GetData.php");
             try {
                 jsonarray = jsonobject.getJSONArray("comentarios");
             } catch (NullPointerException e) {

@@ -67,6 +67,7 @@ public class Servicio extends Service {
         try {
             player.setDataSource("http://192.168.1.64:8000");
             player.prepare();
+
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -102,8 +103,8 @@ public class Servicio extends Service {
     @Override
     public int onStartCommand(Intent intenc, int flags, int idArranque) {
 
-        Toast.makeText(this, "Servicio Iniciado", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onStart");
+
         player.start();
         Radio.corriendo = true;
         Intent intent1 = new Intent(this, MainActivity.class);
@@ -113,8 +114,8 @@ public class Servicio extends Service {
 
         builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_logo)
-                .setTicker("Radio Bulldogs: La estacion de radio mas perra!")
-                .setContentTitle("Radio Bulldogs")
+                .setTicker("Radio Bulldog: La estacion de radio mas perra!")
+                .setContentTitle("Radio Bulldog")
                 .setContentText(idnoti)
                 .setLargeIcon(imgcaratula)
                 .setContentIntent(pIntent);
@@ -140,4 +141,10 @@ public class Servicio extends Service {
     public IBinder onBind(Intent intencion) {
         return null;
     }
+
+    public void onPrepared(MediaPlayer player) {
+        player.start();
+    }
+
 }
+

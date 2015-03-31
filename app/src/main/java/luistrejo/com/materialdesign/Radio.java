@@ -165,7 +165,16 @@ public class Radio extends Fragment implements View.OnClickListener {
                     editor.commit();
                 } else {
                     Log.d(TAG, "onClick: Starting service");
-                    getActivity().startService(new Intent(getActivity(), Servicio.class));
+                    Toast.makeText(Radio.this.getActivity(), "Cargando reproduccion", Toast.LENGTH_SHORT).show();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().startService(new Intent(getActivity(), Servicio.class));
+
+                        }
+                    }, 50);
                     Drawable stop = getResources().getDrawable(R.drawable.ic_stop);
                     buttonStart.setImageDrawable(stop);
                     editor.putBoolean("play", false);
