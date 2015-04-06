@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -61,6 +62,7 @@ public class Chat extends Fragment {
     ListView listview;
     ListViewAdapter adapter;
     ArrayList<HashMap<String, String>> arraylist;
+    public static String id = "id";
     public static String usuario = "usuario";
     public static String comentario = "comentario";
     public static String fecha = "fecha";
@@ -137,7 +139,7 @@ public class Chat extends Fragment {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient = new DefaultHttpClient();
-        httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/comentar");
+        httppost = new HttpPost("http://192.168.0.109/radiobulldogE/public/comentar");
 
         //Consultamos valor usuario del shared preferences
         SharedPreferences settings = getActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
@@ -222,7 +224,7 @@ public class Chat extends Fragment {
         protected Void doInBackground(Void... params) {
             cambio = false;
             errorb = false;
-            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.1.64/GetData.php");
+            jsonobject = JSONfunctions.getJSONfromURL("http://192.168.0.109/radiobulldogE/GetData.php");
             try {
                 jsonarray = jsonobject.getJSONArray("comentarios");
             } catch (NullPointerException e) {
@@ -245,6 +247,7 @@ public class Chat extends Fragment {
                             map = new HashMap<String, String>();
                             jsonobject = jsonarray.getJSONObject(i);
                             // Retrive JSON Objects
+                            map.put("id", jsonobject.getString("id"));
                             map.put("usuario", jsonobject.getString("usuario"));
                             map.put("comentario", jsonobject.getString("comentario"));
                             map.put("fecha", jsonobject.getString("fecha"));
@@ -292,6 +295,7 @@ public class Chat extends Fragment {
 
 
     }
+
 
 }
 

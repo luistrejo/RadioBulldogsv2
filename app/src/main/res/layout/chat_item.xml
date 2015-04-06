@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ff00bcff"
-        android:textSize="10dp"
-        android:textStyle="italic"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_below="@+id/comentario"
+        android:textColor="#d1d23b43"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        android:text="Luis Trejo"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="hjhjhjhj" />
+        android:layout_marginLeft="15dp" />
 
     <TextView
         android:id="@+id/fecha"
@@ -23,31 +22,46 @@
         android:layout_height="wrap_content"
         android:textColor="#ff5c635a"
         android:textSize="10dp"
+        android:text="Fecha"
         android:layout_below="@+id/comentario"
-        android:layout_alignRight="@+id/barra"
-        android:layout_alignEnd="@+id/barra"
-        android:layout_marginRight="8dp" />
+        android:layout_alignLeft="@+id/comentario"
+        android:layout_alignStart="@+id/comentario" />
 
     <TextView
         android:id="@+id/comentario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/burbujaf"
-        android:textSize="13dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/azulfondo" />
-
-    <View
-        android:id="@+id/barra"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
+        android:textSize="20dp"
+        android:textColor="@color/azulfondo"
+        android:text="Este es un comentario bla bla bla bla bla"
         android:layout_below="@+id/usuario"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@color/azulfuerte" />
+        android:layout_alignLeft="@+id/usuario"
+        android:layout_alignStart="@+id/usuario"
+        android:layout_toLeftOf="@+id/reportar"
+        android:layout_toStartOf="@+id/usuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/id"
+        android:textColor="#00000000"
+        android:text="ID"
+        android:layout_alignBottom="@+id/fecha"
+        android:layout_toRightOf="@+id/fecha"
+        android:layout_toEndOf="@+id/fecha"
+        android:textSize="10dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reportar"
+        android:src="@drawable/ic_report"
+        android:background="#00000000"
+        android:layout_marginRight="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/comentario"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

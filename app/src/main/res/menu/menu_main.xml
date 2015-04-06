@@ -8,4 +8,10 @@
         android:title="Cbtis 122"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/cancionesant"
+        android:title="Historial de Reproducción"
+        android:orderInCategory="100"
+        app:showAsAction="withText" />
 </menu>

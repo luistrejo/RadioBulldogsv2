@@ -33,7 +33,7 @@ public class Login extends Activity {
     Button blogin;
     Httppostaux post;
     com.gc.materialdesign.widgets.ProgressDialog dialog;
-    String URL_connect = "http://192.168.1.64/radiobulldogE/public/login";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.0.109/radiobulldogE/public/login";//ruta en donde estan nuestros archivos
     String usuario;
     boolean result_back;
     SharedPreferences settings;

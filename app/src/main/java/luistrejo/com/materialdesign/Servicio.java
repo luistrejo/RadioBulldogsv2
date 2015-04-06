@@ -65,7 +65,7 @@ public class Servicio extends Service {
         player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         try {
-            player.setDataSource("http://192.168.1.64:8000");
+            player.setDataSource("http://192.168.0.109:8000");
             player.prepare();
 
         } catch (IllegalArgumentException e) {

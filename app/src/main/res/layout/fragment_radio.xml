@@ -52,9 +52,6 @@
                 android:id="@+id/nextcancion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView16"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
@@ -64,7 +61,11 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#ffffffff"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:layout_below="@+id/textView16"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -153,6 +154,21 @@
 
         </RelativeLayout>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ant"
+            android:id="@+id/ant"
+            android:layout_alignBottom="@+id/botones"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="23dp" />
+
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/list_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class Registro extends ActionBarActivity {
     private Spinner especialidad, gradogrupo;
     private Button insertar;
     Httppostaux post;
-    String URL_connect = "http://192.168.1.64/radiobulldogE/public/registrar";//ruta en donde estan nuestros archivos
+    String URL_connect = "http://192.168.0.109/radiobulldogE/public/registrar";//ruta en donde estan nuestros archivos
     com.gc.materialdesign.widgets.ProgressDialog dialog;
 
 
@@ -133,7 +133,7 @@ public class Registro extends ActionBarActivity {
             List<NameValuePair> nameValuePairs;
             HttpPost httppost;
             httpclient = new DefaultHttpClient();
-            httppost = new HttpPost("http://192.168.1.64/radiobulldogE/public/registrarAndroid");
+            httppost = new HttpPost("http://192.168.0.109/radiobulldogE/public/registrarAndroid");
             //Añadimos los datos
             nameValuePairs = new ArrayList<NameValuePair>(6);
             nameValuePairs.add(new BasicNameValuePair("nombre", nombre.getText().toString().trim()));

@@ -65,6 +65,7 @@ public class MainActivity extends ActionBarActivity {
     FragmentManager fragmentManager = getFragmentManager();
     SharedPreferences settings;
     SharedPreferences.Editor editor;
+    private static final String LIST_FRAGMENT_TAG = "list_fragment";
 
 
     @Override
@@ -246,7 +247,22 @@ public class MainActivity extends ActionBarActivity {
             cbtis.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(cbtis);
             return true;
-
+        }
+        if (id == R.id.cancionesant) {
+            Fragment f = getFragmentManager().findFragmentByTag(LIST_FRAGMENT_TAG);
+            if (f != null) {
+                getFragmentManager().popBackStack();
+            } else {
+                getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.animator.slide_up,
+                                R.animator.slide_down,
+                                R.animator.slide_up,
+                                R.animator.slide_down)
+                        .add(R.id.list_fragment_container, SlidingListFragmentCanciones
+                                        .instantiate(this, SlidingListFragmentCanciones.class.getName()),
+                                LIST_FRAGMENT_TAG
+                        ).addToBackStack(null).commit();
+            }
         }
 
         return super.onOptionsItemSelected(item);
